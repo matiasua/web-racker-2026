@@ -6,25 +6,98 @@ import "../styles/global.css";
 const {
   title = "Racker | Soluciones en almacenaje industrial",
   description = "Diseño, fabricación e implementación de sistemas de almacenaje industrial.",
+  image = "/images/servicios/rack_selectivo_3.jpg",
+  noindex = false,
+  type = "website",
 } = Astro.props;
+
+const baseUrl = Astro.site ?? Astro.url;
+const siteUrl = new URL("/", baseUrl).toString();
+const canonical = new URL(Astro.url.pathname, baseUrl).toString();
+const ogImage = image.startsWith("http")
+  ? image
+  : new URL(image, baseUrl).toString();
+const robots = noindex ? "noindex, nofollow" : "index, follow";
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Racker",
+    url: siteUrl,
+    logo: new URL("/images/Logo_Racker.png", baseUrl).toString(),
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        telephone: "+56 9 4411 6800",
+        contactType: "sales",
+        areaServed: "CL",
+        availableLanguage: ["es"],
+      },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Racker",
+    url: siteUrl,
+    inLanguage: "es-CL",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: title,
+    description,
+    url: canonical,
+    inLanguage: "es-CL",
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Racker",
+      url: siteUrl,
+    },
+  },
+];
 ---
+
 <!doctype html>
-<html lang="es">
+<html lang="es-CL">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    <meta name="googlebot" content={robots} />
+    <meta name="author" content="Racker" />
+    <meta name="theme-color" content="#0a1730" />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:site_name" content="Racker" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <link rel="icon" href="/favicon.svg" />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta
+      property="og:image:alt"
+      content="Racker - Soluciones de almacenaje industrial"
+    />
+    <meta property="og:locale" content="es_CL" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" type="image/png" href="/images/Logo_Racker.png" />
+    <link rel="shortcut icon" type="image/png" href="/images/Logo_Racker.png" />
+    <link rel="apple-touch-icon" href="/images/Logo_Racker.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
     <slot />

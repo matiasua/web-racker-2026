@@ -6,7 +6,10 @@ import { systems } from '../../data';
 
 const system = systems.find((item) => item.slug === 'rack-selectivo');
 ---
-<BaseLayout title="{system?.name} | Racker">
+<BaseLayout
+  title={`${system?.name ?? "Rack Selectivo"} | Racker`}
+  description={system?.summary}
+>
   <Header />
   <section class="page-hero">
     <div class="container">

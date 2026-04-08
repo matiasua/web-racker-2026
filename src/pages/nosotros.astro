@@ -3,7 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 ---
-<BaseLayout title="Nosotros | Racker">
+<BaseLayout
+  title="Nosotros | Racker"
+  description="Conoce al equipo de Racker y nuestro enfoque técnico para proyectos de almacenaje industrial seguros, escalables y eficientes."
+>
   <Header />
   <section class="page-hero page-hero--small">
     <div class="container">
@@ -30,19 +33,58 @@ import Footer from '../components/Footer.astro';
     </div>
   </section>
 
-  <section class="section section--alt">
+  <section class="section section--alt about-process">
     <div class="container">
-      <div class="timeline">
-        <article class="timeline__item">
-          <h3>1. Diagnóstico</h3>
+      <div class="about-process__header">
+        <span class="eyebrow">Metodología</span>
+        <h2>Cómo ejecutamos cada proyecto</h2>
+      </div>
+      <div class="timeline about-process__grid">
+        <article class="timeline__item about-process__item">
+          <div class="about-process__top">
+            <span class="about-process__step">Etapa 1</span>
+            <span class="about-process__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="11" cy="11" r="6.5"></circle>
+                <path d="M16 16l4 4"></path>
+                <path d="M8.5 11h5"></path>
+                <path d="M11 8.5v5"></path>
+              </svg>
+            </span>
+          </div>
+          <h3>Diagnóstico</h3>
           <p>Levantamiento de medidas, altura útil, tipo de carga, rotación y equipos de maniobra.</p>
         </article>
-        <article class="timeline__item">
-          <h3>2. Propuesta técnica</h3>
+        <article class="timeline__item about-process__item">
+          <div class="about-process__top">
+            <span class="about-process__step">Etapa 2</span>
+            <span class="about-process__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="4" y="5" width="16" height="14" rx="2"></rect>
+                <path d="M8 9h8"></path>
+                <path d="M8 12h8"></path>
+                <path d="M8 15h5"></path>
+              </svg>
+            </span>
+          </div>
+          <h3>Propuesta técnica</h3>
           <p>Definición de layout, sistema recomendado, memoria de cálculo y proyección de capacidad.</p>
         </article>
-        <article class="timeline__item">
-          <h3>3. Implementación</h3>
+        <article class="timeline__item about-process__item">
+          <div class="about-process__top">
+            <span class="about-process__step">Etapa 3</span>
+            <span class="about-process__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M6 20h12"></path>
+                <path d="M8 20V9h8v11"></path>
+                <path d="M6 9h12"></path>
+                <path d="M10 12h4"></path>
+                <path d="M10 15h4"></path>
+                <path d="M9 5h6l1 4H8l1-4z"></path>
+              </svg>
+            </span>
+          </div>
+          <h3>Implementación</h3>
           <p>Fabricación, coordinación de montaje y validación en terreno con foco en seguridad.</p>
         </article>
       </div>
@@ -50,3 +92,181 @@ import Footer from '../components/Footer.astro';
   </section>
   <Footer />
 </BaseLayout>
+
+<style>
+  .about-process {
+    background: linear-gradient(180deg, #edf3fb 0%, #e8eef8 100%);
+    padding: 3.4rem 0;
+  }
+
+  .about-process__header {
+    margin-bottom: 1rem;
+    max-width: 620px;
+  }
+
+  .about-process__header h2 {
+    margin: 0;
+    letter-spacing: -0.02em;
+    font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+    line-height: 1.08;
+  }
+
+  .about-process__grid {
+    gap: 0.8rem;
+  }
+
+  .about-process__item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 24px;
+    border: 1px solid rgba(13, 27, 42, 0.08);
+    background:
+      linear-gradient(180deg, #ffffff 0%, #f8faff 100%),
+      radial-gradient(circle at 94% 8%, rgba(15, 76, 151, 0.07), transparent 44%);
+    padding: 1rem 0.9rem 0.9rem 1rem;
+    min-height: 0;
+    box-shadow: 0 14px 28px rgba(10, 23, 48, 0.08);
+    overflow: hidden;
+  }
+
+  .about-process__item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: linear-gradient(180deg, var(--accent), #ff6d00);
+  }
+
+  .about-process__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.52rem;
+  }
+
+  .about-process__step {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 138, 29, 0.25);
+    background: rgba(255, 138, 29, 0.14);
+    color: #c55e00;
+    font-size: 0.64rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0 0.5rem;
+  }
+
+  .about-process__icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    background: rgba(15, 76, 151, 0.08);
+    border: 1px solid rgba(15, 76, 151, 0.2);
+    color: var(--primary);
+  }
+
+  .about-process__icon svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    stroke-width: 1.9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .about-process__item h3 {
+    margin: 0 0 0.45rem;
+    color: var(--primary);
+    font-size: clamp(1.38rem, 2vw, 1.82rem);
+    letter-spacing: -0.02em;
+    line-height: 1.06;
+  }
+
+  .about-process__item p {
+    margin: 0;
+    color: #526077;
+    font-size: clamp(0.94rem, 1.12vw, 1.02rem);
+    line-height: 1.45;
+    max-width: 32ch;
+  }
+
+  @media (max-width: 1024px) {
+    .about-process {
+      padding: 3rem 0;
+    }
+
+    .about-process__item {
+      padding: 0.95rem 0.86rem 0.86rem 0.95rem;
+      border-radius: 20px;
+    }
+
+    .about-process__icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .about-process {
+      padding: 2.6rem 0;
+    }
+
+    .about-process__header {
+      margin-bottom: 0.8rem;
+    }
+
+    .about-process__item {
+      min-height: 0;
+      padding: 0.9rem 0.82rem 0.82rem 0.9rem;
+      border-radius: 18px;
+    }
+
+    .about-process__item::before {
+      width: 5px;
+    }
+
+    .about-process__top {
+      margin-bottom: 0.45rem;
+    }
+
+    .about-process__step {
+      min-height: 22px;
+      font-size: 0.6rem;
+      padding-inline: 0.46rem;
+    }
+
+    .about-process__icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+    }
+
+    .about-process__icon svg {
+      width: 16px;
+      height: 16px;
+      stroke-width: 1.9;
+    }
+
+    .about-process__item h3 {
+      margin-bottom: 0.38rem;
+      font-size: clamp(1.32rem, 7vw, 1.7rem);
+    }
+
+    .about-process__item p {
+      font-size: 0.92rem;
+      line-height: 1.45;
+      max-width: none;
+    }
+  }
+</style>
