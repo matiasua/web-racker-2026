@@ -1,12 +1,14 @@
 ---
-import QuoteModal from '../components/QuoteModal.astro';
-import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import QuoteModal from "../components/QuoteModal.astro";
+import WhatsAppFloat from "../components/WhatsAppFloat.astro";
+import "../styles/global.css";
 
 const {
-  title = 'Racker | Soluciones en almacenaje industrial',
-  description = 'Diseño, fabricación e implementación de sistemas de almacenaje industrial.',
+  title = "Racker | Soluciones en almacenaje industrial",
+  description = "Diseño, fabricación e implementación de sistemas de almacenaje industrial.",
 } = Astro.props;
 ---
+
 <!doctype html>
 <html lang="es">
   <head>
@@ -18,10 +20,12 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <link rel="icon" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/src/styles/global.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <slot />
