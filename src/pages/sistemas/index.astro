@@ -1,0 +1,493 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { systems } from "../../data";
+
+const systemMedia = {
+  "rack-selectivo": [
+    "/images/servicios/rack_selectivo_1.jpg",
+    "/images/servicios/rack_selectivo_2.jpg",
+    "/images/servicios/rack_selectivo_3.jpg",
+  ],
+  "rack-drive-in": [
+    "/images/servicios/rack_drive_in_1.jpg",
+    "/images/servicios/rack_drive_in_2.jpg",
+    "/images/servicios/rack_drive_in_3.jpg",
+    "/images/servicios/rack_drive_in_4.jpg",
+  ],
+  "altillo-rack": [
+    "/images/servicios/altillo_rack_1.jpg",
+    "/images/servicios/altillo_rack_2.jpg",
+    "/images/servicios/altillo_rack_3.jpg",
+  ],
+  "altillo-industrial": [
+    "/images/servicios/altillo_industrial_1.jpg",
+    "/images/servicios/altillo_industrial_2.jpg",
+    "/images/servicios/altillo_industrial_3.jpg",
+  ],
+  "protectores-de-marco": ["/images/servicios/protector-marco.png"],
+} as const;
+
+const systemsWithMedia = systems.map((system) => ({
+  ...system,
+  anchorId: `sistema-${system.slug}`,
+  images: systemMedia[system.slug as keyof typeof systemMedia] ?? [],
+}));
+---
+
+<BaseLayout title="Sistemas de almacenaje | Racker">
+  <Header />
+  <section class="page-hero page-hero--small">
+    <div class="container">
+      <span class="eyebrow">Sistemas</span>
+      <h1>Soluciones de almacenaje para distintas operaciones</h1>
+      <p>
+        Selecciona la alternativa que mejor se adapta a tu bodega, tipo de
+        pallet y rotación logística.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container systems-quick-grid">
+      {
+        systemsWithMedia.map((system) => (
+          <article class="system-quick-card">
+            <h3>{system.name}</h3>
+            <p>{system.summary}</p>
+            <a href={`#${system.anchorId}`} class="btn btn--secondary">
+              Ver más
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container systems-detail-list">
+      {
+        systemsWithMedia.map((system, index) => (
+          <article
+            id={system.anchorId}
+            class={`system-detail ${index % 2 !== 0 ? "system-detail--reverse" : ""}`}
+          >
+            <div class="system-carousel" data-carousel>
+              <div class="system-carousel__viewport">
+                <div class="system-carousel__track" data-track>
+                  {system.images.map((image, imageIndex) => (
+                    <figure class="system-carousel__slide">
+                      <img
+                        src={image}
+                        alt={`${system.name} ${imageIndex + 1}`}
+                        loading="lazy"
+                      />
+                    </figure>
+                  ))}
+                </div>
+              </div>
+
+              <button
+                class="system-carousel__btn system-carousel__btn--prev"
+                type="button"
+                data-dir="-1"
+                aria-label="Anterior"
+              >
+                ‹
+              </button>
+              <button
+                class="system-carousel__btn system-carousel__btn--next"
+                type="button"
+                data-dir="1"
+                aria-label="Siguiente"
+              >
+                ›
+              </button>
+
+              <div class="system-carousel__dots">
+                {system.images.map((_, dotIndex) => (
+                  <button
+                    type="button"
+                    class={`system-carousel__dot ${dotIndex === 0 ? "is-active" : ""}`}
+                    data-dot={dotIndex}
+                    aria-label={`Ir a imagen ${dotIndex + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div class="system-detail__content">
+              <h2>{system.name}</h2>
+              <p>{system.hero}</p>
+              <p>{system.summary}</p>
+              <ul>
+                {system.benefits.map((benefit) => (
+                  <li>{benefit}</li>
+                ))}
+              </ul>
+              <a
+                href="https://wa.me/56944116800?text=Hola%2C%20necesito%20Soluciones%20de%20Almacenamiento"
+                target="_blank"
+                class="btn btn--primary"
+              >
+                Más detalle
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .systems-quick-grid,
+  .systems-detail-list {
+    position: relative;
+    z-index: 2;
+  }
+
+  .systems-quick-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: -3.4rem;
+  }
+
+  .system-quick-card {
+    background:
+      linear-gradient(160deg, #ffffff 0%, #f5f9ff 88%),
+      radial-gradient(
+        circle at 85% 15%,
+        rgba(15, 76, 151, 0.07),
+        transparent 55%
+      );
+    border: 1px solid rgba(14, 30, 56, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 14px 30px rgba(11, 28, 53, 0.08);
+    padding: 1.15rem 1.05rem 1rem;
+    min-height: 210px;
+    display: grid;
+    align-content: start;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .system-quick-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 34px rgba(11, 28, 53, 0.14);
+  }
+
+  .system-quick-card h3 {
+    margin: 0 0 0.45rem;
+    font-size: clamp(1.2rem, 2.1vw, 1.5rem);
+    color: #132443;
+    letter-spacing: -0.015em;
+  }
+
+  .system-quick-card p {
+    margin: 0 0 0.9rem;
+    color: var(--muted);
+    line-height: 1.5;
+    font-size: 0.98rem;
+  }
+
+  .system-quick-card .btn {
+    width: fit-content;
+    min-height: 38px;
+    padding-inline: 1rem;
+    border-radius: 999px;
+    background: #e7edf5;
+    color: #184f98;
+    border: 1px solid rgba(15, 76, 151, 0.08);
+    font-weight: 700;
+  }
+
+  .systems-detail-list {
+    display: grid;
+    gap: 1.35rem;
+  }
+
+  .system-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.55rem;
+    align-items: center;
+    scroll-margin-top: 132px;
+    background: #fff;
+    border: 1px solid rgba(10, 23, 48, 0.1);
+    border-radius: 24px;
+    box-shadow: 0 16px 34px rgba(11, 28, 53, 0.08);
+    padding: 1.05rem;
+  }
+
+  .system-detail--reverse .system-carousel {
+    order: 2;
+  }
+
+  .system-detail--reverse .system-detail__content {
+    order: 1;
+  }
+
+  .system-carousel {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(10, 23, 48, 0.08);
+    box-shadow: 0 10px 22px rgba(10, 23, 48, 0.08);
+    background: #dce5ee;
+  }
+
+  .system-carousel__viewport {
+    overflow: hidden;
+    aspect-ratio: 5 / 4;
+  }
+
+  .system-carousel__track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.35s ease;
+  }
+
+  .system-carousel__slide {
+    flex: 0 0 100%;
+    margin: 0;
+    height: 100%;
+  }
+
+  .system-carousel__slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .system-carousel__btn {
+    position: absolute;
+    top: calc(50% - 19px);
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 999px;
+    background: rgba(12, 24, 46, 0.45);
+    color: #fff;
+    font-size: 1.35rem;
+    line-height: 1;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: 0.2s ease;
+  }
+
+  .system-carousel__btn:hover {
+    background: rgba(12, 24, 46, 0.72);
+  }
+
+  .system-carousel__btn--prev {
+    left: 0.6rem;
+  }
+
+  .system-carousel__btn--next {
+    right: 0.6rem;
+  }
+
+  .system-carousel__dots {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.35rem;
+  }
+
+  .system-carousel__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    border: 0;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    padding: 0;
+    transition:
+      transform 0.2s ease,
+      background 0.2s ease;
+  }
+
+  .system-carousel__dot.is-active {
+    background: #fff;
+    transform: scale(1.2);
+  }
+
+  .system-carousel.is-static .system-carousel__btn,
+  .system-carousel.is-static .system-carousel__dots {
+    display: none;
+  }
+
+  .system-detail__content h2 {
+    margin: 0 0 0.62rem;
+    font-size: clamp(1.55rem, 3vw, 2.3rem);
+    letter-spacing: -0.02em;
+    color: #132443;
+  }
+
+  .system-detail__content p {
+    margin: 0 0 0.5rem;
+    color: var(--muted);
+    line-height: 1.55;
+    font-size: 0.98rem;
+  }
+
+  .system-detail__content ul {
+    margin: 0.4rem 0 0.95rem;
+    padding-left: 1.05rem;
+  }
+
+  .system-detail__content li {
+    margin-bottom: 0.35rem;
+    line-height: 1.45;
+    color: #1e2f4a;
+    font-size: 0.94rem;
+  }
+
+  .system-detail__content .btn {
+    min-height: 44px;
+  }
+
+  @media (max-width: 1024px) {
+    .systems-quick-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: -2.8rem;
+    }
+
+    .system-detail {
+      grid-template-columns: 1fr;
+      gap: 1.1rem;
+      padding: 0.9rem;
+    }
+
+    .system-detail--reverse .system-carousel,
+    .system-detail--reverse .system-detail__content {
+      order: initial;
+    }
+
+    .system-carousel__viewport {
+      aspect-ratio: 16 / 10;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .systems-quick-grid {
+      grid-template-columns: 1fr;
+      margin-top: 0;
+    }
+
+    .system-quick-card {
+      min-height: 0;
+      padding: 1rem;
+      border-radius: 18px;
+    }
+
+    .system-detail {
+      padding: 0.75rem;
+      border-radius: 20px;
+    }
+
+    .system-detail__content h2 {
+      font-size: clamp(1.45rem, 8vw, 2.2rem);
+    }
+
+    .system-carousel__btn {
+      width: 34px;
+      height: 34px;
+      top: calc(50% - 17px);
+    }
+  }
+</style>
+
+<script>
+  (() => {
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const carousels = document.querySelectorAll("[data-carousel]");
+
+    carousels.forEach((carousel) => {
+      const track = carousel.querySelector("[data-track]");
+      if (!(track instanceof HTMLElement)) return;
+
+      const slides = Array.from(
+        track.querySelectorAll(".system-carousel__slide"),
+      );
+      const dots = Array.from(carousel.querySelectorAll("[data-dot]"));
+      const navButtons = Array.from(carousel.querySelectorAll("[data-dir]"));
+
+      if (slides.length <= 1) {
+        carousel.classList.add("is-static");
+        return;
+      }
+
+      let index = 0;
+      let autoTimer = null;
+
+      const render = () => {
+        track.style.transform = `translateX(-${index * 100}%)`;
+        dots.forEach((dot, dotIndex) => {
+          dot.classList.toggle("is-active", dotIndex === index);
+        });
+      };
+
+      const goTo = (nextIndex) => {
+        index = (nextIndex + slides.length) % slides.length;
+        render();
+      };
+
+      const stopAuto = () => {
+        if (autoTimer) {
+          window.clearInterval(autoTimer);
+          autoTimer = null;
+        }
+      };
+
+      const startAuto = () => {
+        if (reduceMotion) return;
+        stopAuto();
+        autoTimer = window.setInterval(() => {
+          goTo(index + 1);
+        }, 3000);
+      };
+
+      navButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const direction = Number(button.getAttribute("data-dir")) || 0;
+          goTo(index + direction);
+        });
+      });
+
+      dots.forEach((dot, dotIndex) => {
+        dot.addEventListener("click", () => {
+          goTo(dotIndex);
+        });
+      });
+
+      carousel.addEventListener("mouseenter", stopAuto);
+      carousel.addEventListener("mouseleave", startAuto);
+      carousel.addEventListener("focusin", stopAuto);
+      carousel.addEventListener("focusout", startAuto);
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          stopAuto();
+        } else {
+          startAuto();
+        }
+      });
+
+      render();
+      startAuto();
+    });
+  })();
+</script>

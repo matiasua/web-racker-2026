@@ -1,0 +1,304 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import SystemCard from '../components/SystemCard.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+import { highlights, systems, services } from '../data';
+---
+<BaseLayout>
+  <Header />
+  <Hero
+    eyebrow="Racker 2026"
+    title="Soluciones en almacenaje industrial para bodegas modernas"
+    description="Diseñamos e implementamos sistemas de almacenaje con foco en capacidad, seguridad y eficiencia operacional para centros de distribución, industria y cámaras de frío."
+  />
+
+  <section class="section home-highlights-section">
+    <div class="container">
+      <div class="highlights">
+        {highlights.map((item) => (
+          <article class="highlight">
+            <span class="highlight__line" aria-hidden="true"></span>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt home-about-section">
+    <div class="container split home-about">
+      <div class="home-about__intro">
+        <span class="eyebrow">Quiénes somos</span>
+        <h2>Ingeniería aplicada a almacenaje y operación logística</h2>
+        <p class="lead">
+          Racker acompaña a sus clientes desde el levantamiento técnico hasta la instalación final. Nuestra propuesta se centra en soluciones confiables, layout eficiente y estructuras preparadas para el ritmo real de la industria.
+        </p>
+        <div class="home-about__chips" aria-hidden="true">
+          <span>Ingeniería aplicada</span>
+          <span>Fabricación propia</span>
+          <span>Montaje en terreno</span>
+        </div>
+      </div>
+      <div class="panel home-about__panel">
+        <ul class="check-list">
+          <li>Levantamiento técnico y diagnóstico operacional</li>
+          <li>Memoria de cálculo y diseño estructural</li>
+          <li>Fabricación, montaje y puesta en marcha</li>
+          <li>Asesoría para ampliaciones y mejoras de layout</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section home-systems-section">
+    <div class="container">
+      <div class="section-heading home-systems__heading">
+        <div>
+          <span class="eyebrow">Sistemas de almacenaje</span>
+          <h2>Nuestras soluciones principales</h2>
+        </div>
+        <a href="/sistemas" class="btn btn--secondary">Ver todas</a>
+      </div>
+
+      <div class="cards-grid">
+        {systems.map((system) => <SystemCard {...system} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">Servicios</span>
+          <h2>Servicios en acción</h2>
+        </div>
+        <a href="/servicios" class="btn btn--ghost-light">Ver servicios</a>
+      </div>
+
+      <div class="video-grid">
+        {services.map((service) => (
+          <article class="project-card">
+            <div class="video-frame">
+              <iframe
+                src={`https://www.youtube.com/embed/${service.youtubeId}`}
+                title={service.title}
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <h3>{service.title}</h3>
+            <p>{service.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ContactBlock />
+  <Footer />
+</BaseLayout>
+
+<style>
+  .home-highlights-section .highlights {
+    gap: 1rem;
+    margin-top: -2.9rem;
+  }
+
+  .home-highlights-section .highlight {
+    position: relative;
+    border-radius: 22px;
+    border: 1px solid rgba(12, 28, 52, 0.1);
+    background:
+      linear-gradient(180deg, #ffffff 0%, #f6f9fe 100%),
+      radial-gradient(circle at 88% 12%, rgba(15, 76, 151, 0.08), transparent 52%);
+    box-shadow: 0 14px 30px rgba(12, 28, 52, 0.08);
+    overflow: hidden;
+    min-height: 170px;
+  }
+
+  .home-highlights-section .highlight__line {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: linear-gradient(180deg, var(--accent), #ff6d00);
+    opacity: 0.85;
+  }
+
+  .home-highlights-section .highlight h3 {
+    margin: 0 0 0.62rem;
+    color: #174f97;
+    font-size: clamp(1.18rem, 2vw, 1.48rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .home-highlights-section .highlight p {
+    font-size: 1.03rem;
+    line-height: 1.55;
+  }
+
+  .home-about {
+    align-items: stretch;
+    gap: 1.2rem;
+  }
+
+  .home-about__intro {
+    border-radius: 22px;
+    background:
+      linear-gradient(180deg, #eef4fc 0%, rgba(238, 244, 252, 0.35) 100%),
+      radial-gradient(circle at 90% 12%, rgba(255, 138, 29, 0.1), transparent 48%);
+    border: 1px solid rgba(10, 23, 48, 0.08);
+    padding: 1.4rem;
+  }
+
+  .home-about__intro h2 {
+    margin-bottom: 0.8rem;
+  }
+
+  .home-about__intro .lead {
+    margin: 0;
+  }
+
+  .home-about__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .home-about__chips span {
+    border: 1px solid rgba(15, 76, 151, 0.2);
+    background: rgba(255, 255, 255, 0.8);
+    color: #184f98;
+    border-radius: 999px;
+    padding: 0.4rem 0.72rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  .home-about__panel {
+    border-radius: 22px;
+    border: 1px solid rgba(10, 23, 48, 0.08);
+    background: #fff;
+    box-shadow: 0 14px 30px rgba(12, 28, 52, 0.08);
+  }
+
+  .home-about__panel .check-list li {
+    font-size: 0.97rem;
+  }
+
+  .home-systems-section {
+    padding-top: 4.4rem;
+  }
+
+  @media (max-width: 1024px) {
+    .home-highlights-section .highlights {
+      margin-top: -2.2rem;
+    }
+
+    .home-highlights-section .highlight {
+      min-height: 160px;
+    }
+
+    .home-systems-section {
+      padding-top: 3.8rem;
+    }
+
+  }
+
+  @media (max-width: 760px) {
+    .home-highlights-section {
+      padding-top: 2.2rem;
+      padding-bottom: 2.5rem;
+    }
+
+    .home-highlights-section .highlights {
+      margin-top: -1.15rem;
+      gap: 0.72rem;
+    }
+
+    .home-highlights-section .highlight {
+      min-height: 0;
+      padding: 1rem 0.95rem;
+      border-radius: 18px;
+    }
+
+    .home-highlights-section .highlight h3 {
+      font-size: clamp(1.12rem, 6.2vw, 1.34rem);
+      margin-bottom: 0.45rem;
+    }
+
+    .home-highlights-section .highlight p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .home-about__intro,
+    .home-about__panel {
+      padding: 1rem;
+    }
+
+    .home-about {
+      gap: 0.85rem;
+    }
+
+    .home-about__intro h2 {
+      font-size: clamp(1.62rem, 8.3vw, 2.05rem);
+      line-height: 1.06;
+    }
+
+    .home-about__intro .lead {
+      font-size: 0.96rem;
+      line-height: 1.55;
+    }
+
+    .home-about__chips {
+      gap: 0.42rem;
+      margin-top: 0.8rem;
+    }
+
+    .home-about__chips span {
+      font-size: 0.76rem;
+      padding: 0.34rem 0.6rem;
+    }
+
+    .home-systems-section {
+      padding-top: 2.8rem;
+    }
+
+    .home-systems__heading {
+      margin-bottom: 1rem;
+      gap: 0.75rem;
+    }
+
+    .home-systems__heading .btn {
+      width: 100%;
+    }
+
+  }
+
+  @media (max-width: 520px) {
+    .home-highlights-section .highlights {
+      margin-top: -0.8rem;
+    }
+
+    .home-about__panel .check-list li {
+      font-size: 0.92rem;
+      padding-block: 0.54rem;
+    }
+
+    .home-systems-section .container {
+      width: min(var(--container), calc(100% - 1rem));
+    }
+  }
+</style>

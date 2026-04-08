@@ -1,0 +1,15 @@
+---
+const { eyebrow, title, description, ctaText = 'Solicitar cotización', ctaHref = '/contacto#cotizar' } = Astro.props;
+---
+<section class="hero">
+  <div class="hero__overlay"></div>
+  <div class="container hero__content">
+    <span class="eyebrow">{eyebrow}</span>
+    <h1>{title}</h1>
+    <p>{description}</p>
+    <div class="hero__actions">
+      <a href={ctaHref} class="btn btn--primary" data-quote-trigger>{ctaText}</a>
+      <a href="/sistemas" class="btn btn--ghost">Ver soluciones</a>
+    </div>
+  </div>
+</section>

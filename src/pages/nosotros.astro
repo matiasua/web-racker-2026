@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+<BaseLayout title="Nosotros | Racker">
+  <Header />
+  <section class="page-hero page-hero--small">
+    <div class="container">
+      <span class="eyebrow">Nosotros</span>
+      <h1>Experiencia técnica para proyectos de almacenaje industrial</h1>
+      <p>Diseñamos soluciones enfocadas en capacidad, seguridad, circulación y crecimiento operacional.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div>
+        <h2>Qué hace diferente a Racker</h2>
+        <p class="lead">Trabajamos con una mirada de ingeniería y operación. No se trata sólo de vender racks, sino de proyectar una bodega funcional, segura y rentable.</p>
+      </div>
+      <div class="panel">
+        <ul class="check-list">
+          <li>Enfoque técnico y comercial alineado</li>
+          <li>Diseños adaptados a flujo real de carga</li>
+          <li>Equipos pensados para uso industrial intensivo</li>
+          <li>Acompañamiento antes, durante y después del montaje</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="timeline">
+        <article class="timeline__item">
+          <h3>1. Diagnóstico</h3>
+          <p>Levantamiento de medidas, altura útil, tipo de carga, rotación y equipos de maniobra.</p>
+        </article>
+        <article class="timeline__item">
+          <h3>2. Propuesta técnica</h3>
+          <p>Definición de layout, sistema recomendado, memoria de cálculo y proyección de capacidad.</p>
+        </article>
+        <article class="timeline__item">
+          <h3>3. Implementación</h3>
+          <p>Fabricación, coordinación de montaje y validación en terreno con foco en seguridad.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+  <Footer />
+</BaseLayout>

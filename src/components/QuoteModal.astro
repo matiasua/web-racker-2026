@@ -1,0 +1,257 @@
+---
+import { company, formRecipients, systems } from '../data';
+---
+<div class="quote-modal" id="quote-modal" aria-hidden="true">
+  <div class="quote-modal__backdrop" data-quote-close></div>
+  <div class="quote-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="quote-modal-title">
+    <button type="button" class="quote-modal__close" aria-label="Cerrar formulario" data-quote-close>
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <div class="quote-modal__header">
+      <span class="eyebrow">Cotización Racker</span>
+      <h2 id="quote-modal-title">Recibe una cotización en horas</h2>
+      <p>
+        Cuéntanos tu necesidad de almacenaje y un ejecutivo de {company.name} te responderá con una propuesta técnica y comercial.
+      </p>
+    </div>
+
+    <form
+      class="quote-form"
+      action={`https://formsubmit.co/${formRecipients.primary}`}
+      data-ajax-action={`https://formsubmit.co/ajax/${formRecipients.primary}`}
+      data-contact-email={`${formRecipients.primary} / ${formRecipients.cc}`}
+      method="POST"
+    >
+      <input type="hidden" name="_subject" value="Nueva solicitud de cotización - Racker" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_cc" value={formRecipients.cc} />
+      <input type="hidden" name="origen" id="quote-origin" value="" />
+      <input type="hidden" name="email" id="quote-email-copy" value="" />
+
+      <div class="quote-form__feedback" id="quote-feedback" role="status" aria-live="polite" hidden>
+        <span class="quote-form__feedback-icon" aria-hidden="true">✓</span>
+        <div>
+          <strong data-feedback-title>Solicitud enviada</strong>
+          <p data-feedback-text>Te responderemos en horas.</p>
+        </div>
+      </div>
+
+      <fieldset class="quote-form__fieldset">
+        <legend>Sistema de interés</legend>
+        <div class="quote-form__products">
+          {systems.map((system, index) => (
+            <label class="quote-product">
+              <input type="radio" name="producto" value={system.name} required={index === 0} />
+              <span class="quote-product__content">
+                <span class="quote-product__check" aria-hidden="true"></span>
+                <span class="quote-product__name">{system.name}</span>
+              </span>
+            </label>
+          ))}
+          <label class="quote-product">
+            <input type="radio" name="producto" value="Otro" />
+            <span class="quote-product__content">
+              <span class="quote-product__check" aria-hidden="true"></span>
+              <span class="quote-product__name">Otro</span>
+            </span>
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="quote-form__grid">
+        <input type="text" name="nombre" placeholder="Nombre" required />
+        <input type="email" name="_replyto" placeholder="Correo electrónico" required />
+      </div>
+      <div class="quote-form__grid">
+        <input type="tel" name="telefono" placeholder="Teléfono" required />
+        <input type="text" name="empresa" placeholder="Empresa (opcional)" />
+      </div>
+      <input type="text" name="asunto" placeholder="Asunto" required />
+      <textarea name="mensaje" rows="4" placeholder="Cuéntanos qué necesitas (metros, pallets, altura, operación, etc.)" required></textarea>
+
+      <div class="quote-form__actions">
+        <button type="submit" class="btn btn--primary">Enviar solicitud</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  (() => {
+    const modal = document.getElementById('quote-modal');
+    if (!modal) return;
+
+    const originInput = document.getElementById('quote-origin');
+    const emailCopyInput = document.getElementById('quote-email-copy');
+    const body = document.body;
+    const form = modal.querySelector('.quote-form');
+    const feedback = modal.querySelector('#quote-feedback');
+    const feedbackIcon = modal.querySelector('.quote-form__feedback-icon');
+    const feedbackTitle = modal.querySelector('[data-feedback-title]');
+    const feedbackText = modal.querySelector('[data-feedback-text]');
+    const submitButton = form?.querySelector('button[type="submit"]');
+    const defaultSubmitLabel = submitButton?.textContent || 'Enviar solicitud';
+    const emailInput = form?.querySelector('input[name="_replyto"]');
+    let autoCloseTimer = null;
+    let closeAnimationTimer = null;
+
+    const clearAutoClose = () => {
+      if (autoCloseTimer) {
+        window.clearTimeout(autoCloseTimer);
+        autoCloseTimer = null;
+      }
+      if (closeAnimationTimer) {
+        window.clearTimeout(closeAnimationTimer);
+        closeAnimationTimer = null;
+      }
+      modal.classList.remove('is-success-closing');
+    };
+
+    const scheduleAutoClose = () => {
+      clearAutoClose();
+      autoCloseTimer = window.setTimeout(() => {
+        modal.classList.add('is-success-closing');
+        closeAnimationTimer = window.setTimeout(() => {
+          closeModal();
+        }, 320);
+      }, 2400);
+    };
+
+    const clearFeedback = () => {
+      if (!(feedback instanceof HTMLElement)) return;
+      feedback.hidden = true;
+      feedback.classList.remove('is-success', 'is-error');
+    };
+
+    const setFeedback = (type, title, text) => {
+      if (!(feedback instanceof HTMLElement)) return;
+      feedback.hidden = false;
+      feedback.classList.remove('is-success', 'is-error');
+      feedback.classList.add(type === 'success' ? 'is-success' : 'is-error');
+
+      if (feedbackIcon instanceof HTMLElement) {
+        feedbackIcon.textContent = type === 'success' ? '✓' : '!';
+      }
+      if (feedbackTitle instanceof HTMLElement) feedbackTitle.textContent = title;
+      if (feedbackText instanceof HTMLElement) feedbackText.textContent = text;
+    };
+
+    const openModal = (trigger) => {
+      const parentMenu = trigger.closest('.mobile-menu');
+      if (parentMenu instanceof HTMLDetailsElement) {
+        parentMenu.open = false;
+      }
+
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      body.classList.add('modal-open');
+      clearAutoClose();
+      clearFeedback();
+
+      if (originInput) {
+        originInput.value = window.location.href;
+      }
+
+      const product = trigger?.dataset?.quoteProduct;
+      if (product) {
+        const option = modal.querySelector(`input[name="producto"][value="${product}"]`);
+        if (option) option.checked = true;
+      }
+
+      const firstInput = modal.querySelector('input[name="nombre"]');
+      if (firstInput instanceof HTMLInputElement) {
+        window.setTimeout(() => firstInput.focus(), 10);
+      }
+    };
+
+    const closeModal = () => {
+      clearAutoClose();
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      body.classList.remove('modal-open');
+      clearFeedback();
+    };
+
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const trigger = target.closest('[data-quote-trigger]');
+      if (trigger) {
+        event.preventDefault();
+        openModal(trigger);
+        return;
+      }
+
+      const closeButton = target.closest('[data-quote-close]');
+      if (closeButton) {
+        event.preventDefault();
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+        closeModal();
+      }
+    });
+
+    if (form instanceof HTMLFormElement) {
+      if (emailInput instanceof HTMLInputElement && emailCopyInput instanceof HTMLInputElement) {
+        emailInput.addEventListener('input', () => {
+          emailCopyInput.value = emailInput.value;
+        });
+      }
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        clearAutoClose();
+        clearFeedback();
+
+        if (!form.reportValidity()) return;
+
+        if (submitButton instanceof HTMLButtonElement) {
+          submitButton.disabled = true;
+          submitButton.textContent = 'Enviando...';
+        }
+
+        try {
+          const formData = new FormData(form);
+          const replyEmail = formData.get('_replyto');
+          if (typeof replyEmail === 'string') {
+            formData.set('email', replyEmail);
+          }
+          const endpoint = form.dataset.ajaxAction || form.action;
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: { Accept: 'application/json' },
+            body: formData
+          });
+
+          if (!response.ok) throw new Error('request_failed');
+
+          form.reset();
+          setFeedback(
+            'success',
+            'Solicitud enviada correctamente',
+            'Gracias por contactarnos. Te responderemos en horas.'
+          );
+          scheduleAutoClose();
+        } catch {
+          setFeedback(
+            'error',
+            'No pudimos enviar tu solicitud',
+            `Intenta nuevamente o escríbenos a ${form.dataset.contactEmail || 'd.fica@racker.cl / r.fica@racker.cl'}.`
+          );
+        } finally {
+          if (submitButton instanceof HTMLButtonElement) {
+            submitButton.disabled = false;
+            submitButton.textContent = defaultSubmitLabel;
+          }
+        }
+      });
+    }
+  })();
+</script>

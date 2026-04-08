@@ -1,0 +1,40 @@
+# Dependencias
+node_modules/
+
+# Build
+dist/
+.astro/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Variables de entorno
+.env
+.env.local
+.env.*.local
+
+# Cache
+.cache/
+.temp/
+
+# Archivos generados
+*.log
+
+# Coverage
+coverage/
+
+# Lock opcional (depende de tu flujo)
+# package-lock.json
+# pnpm-lock.yaml
+# yarn.lock

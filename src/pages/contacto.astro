@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+---
+<BaseLayout title="Contacto | Racker">
+  <Header />
+  <section class="page-hero page-hero--small">
+    <div class="container">
+      <span class="eyebrow">Contacto</span>
+      <h1>Solicita una propuesta técnica y comercial</h1>
+      <p>Cuéntanos las dimensiones de tu bodega, tipo de carga y operación esperada.</p>
+    </div>
+  </section>
+  <ContactBlock />
+  <Footer />
+</BaseLayout>

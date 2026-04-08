@@ -1,0 +1,29 @@
+---
+import { company, formRecipients } from '../data';
+---
+<section class="section" id="cotizar">
+  <div class="container contact-grid">
+    <div>
+      <span class="eyebrow">Contáctanos</span>
+      <h2>Conversemos sobre tu proyecto</h2>
+      <p class="lead">Podemos ayudarte a definir la solución adecuada según operación, altura útil, rotación y capacidad requerida.</p>
+      <ul class="contact-list">
+        <li><strong>Dirección:</strong> {company.address}</li>
+        <li><strong>Email:</strong> <a href={`mailto:${company.email}`}>{company.email}</a></li>
+        <li><strong>Teléfono:</strong> <a href={`tel:${company.phone}`}>{company.phone}</a></li>
+      </ul>
+    </div>
+
+    <form class="contact-form" action={`https://formsubmit.co/${formRecipients.primary}`} method="POST">
+      <input type="hidden" name="_subject" value="Nueva solicitud de contacto - Racker" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_cc" value={formRecipients.cc} />
+      <input type="text" name="nombre" placeholder="Nombre" required />
+      <input type="email" name="_replyto" placeholder="Correo electrónico" required />
+      <input type="text" name="empresa" placeholder="Empresa" />
+      <textarea name="mensaje" rows="5" placeholder="Cuéntanos qué necesitas"></textarea>
+      <button type="submit" class="btn btn--primary">Enviar solicitud</button>
+    </form>
+  </div>
+</section>

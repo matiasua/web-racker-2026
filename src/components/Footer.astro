@@ -1,0 +1,54 @@
+---
+import { company, formRecipients } from "../data";
+---
+
+<footer class="footer">
+  <div class="container footer__grid">
+    <div>
+      <a
+        href="/"
+        class="brand brand--light brand--footer"
+        aria-label="Racker inicio"
+      >
+        <span class="brand__logo-shell">
+          <span class="brand__logo-wrap brand__logo-wrap--footer">
+            <img
+              src="/images/Logo_Racker.png"
+              alt="Racker"
+              class="brand__logo"
+              width="240"
+              height="240"
+            />
+          </span>
+        </span>
+      </a>
+      <p class="footer__copy">
+        Diseño, fabricación y montaje de soluciones para bodegas, centros de
+        distribución e industria.
+      </p>
+    </div>
+
+    <div>
+      <h4>Navegación</h4>
+      <ul class="footer__list">
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/nosotros">Nosotros</a></li>
+        <li><a href="/sistemas">Sistemas</a></li>
+        <li><a href="/servicios">Servicios</a></li>
+        <li><a href="/contacto">Contacto</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Contacto</h4>
+      <ul class="footer__list">
+        <li>{company.address}</li>
+        <li><a href={`mailto:${formRecipients.cc}`}>{formRecipients.cc}</a></li>
+        <li><a href={`tel:${company.phone}`}>{company.phone}</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container">
+    <p class="footer__legal">© 2026 Desarrollado por M4S Solutions</p>
+  </div>
+</footer>
