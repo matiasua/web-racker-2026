@@ -1,9 +1,9 @@
 export const company = {
   name: 'Racker',
-  phone: '+56 9 8613 9633',
+  phone: '+56 9 4411 6800',
   email: 'd.fica@racker.cl',
   whatsapp: 'https://wa.me/56944116800?text=Hola%2C%20necesito%20Soluciones%20de%20Almacenamiento',
-  address: 'Camino Central San Martín 8200, Quilicura, Santiago',
+  address: 'Carretera General San Martín 8200, Quilicura, Santiago',
 };
 
 export const formRecipients = {
