@@ -103,5 +103,146 @@ const jsonLd = [
     <slot />
     <QuoteModal />
     <WhatsAppFloat />
+    {
+      import.meta.env.DEV && (
+        <script is:inline>
+          (() => {
+            const EPSILON = 0.5;
+            let timerId = 0;
+
+            const getViewportWidth = () => {
+              const vv = window.visualViewport?.width;
+              const ww = window.innerWidth;
+              const cw = document.documentElement.clientWidth;
+              return Math.min(vv || ww, ww, cw);
+            };
+
+            const buildSelector = (el) => {
+              if (!(el instanceof HTMLElement)) return "unknown";
+              const id = el.id ? `#${el.id}` : "";
+              const classes =
+                typeof el.className === "string" && el.className.trim().length
+                  ? "." + el.className.trim().split(/\s+/).slice(0, 3).join(".")
+                  : "";
+              return `${el.tagName.toLowerCase()}${id}${classes}`;
+            };
+
+            const shouldSkip = (el) => {
+              if (!(el instanceof HTMLElement)) return true;
+              if (el.tagName === "HTML" || el.tagName === "BODY") return true;
+              if (el.closest('[aria-hidden="true"]')) return true;
+              const style = window.getComputedStyle(el);
+              if (style.display === "none" || style.visibility === "hidden") return true;
+              return false;
+            };
+
+            const scanOverflow = () => {
+              const viewportWidth = getViewportWidth();
+              const offenders = [];
+
+              document.querySelectorAll("body *").forEach((node) => {
+                if (!(node instanceof HTMLElement) || shouldSkip(node)) return;
+
+                const rect = node.getBoundingClientRect();
+                if (rect.width <= 0 && rect.height <= 0) return;
+
+                const leftOverflow = Math.max(0, -rect.left);
+                const rightOverflow = Math.max(0, rect.right - viewportWidth);
+
+                if (leftOverflow > EPSILON || rightOverflow > EPSILON) {
+                  const style = window.getComputedStyle(node);
+                  offenders.push({
+                    el: node,
+                    selector: buildSelector(node),
+                    width: Number(rect.width.toFixed(2)),
+                    left: Number(rect.left.toFixed(2)),
+                    right: Number(rect.right.toFixed(2)),
+                    leftOverflow: Number(leftOverflow.toFixed(2)),
+                    rightOverflow: Number(rightOverflow.toFixed(2)),
+                    position: style.position,
+                    display: style.display,
+                    overflowX: style.overflowX,
+                    transform: style.transform === "none" ? "none" : "transformed",
+                  });
+                }
+              });
+
+              offenders.sort(
+                (a, b) =>
+                  Math.max(b.leftOverflow, b.rightOverflow) -
+                  Math.max(a.leftOverflow, a.rightOverflow),
+              );
+
+              console.groupCollapsed(
+                `[overflow-debug] viewport=${viewportWidth}px scrollWidth=${document.documentElement.scrollWidth}px offenders=${offenders.length}`,
+              );
+              if (offenders.length) {
+                console.table(
+                  offenders.map((o) => ({
+                    selector: o.selector,
+                    width: o.width,
+                    left: o.left,
+                    right: o.right,
+                    leftOverflow: o.leftOverflow,
+                    rightOverflow: o.rightOverflow,
+                    position: o.position,
+                    display: o.display,
+                    overflowX: o.overflowX,
+                    transform: o.transform,
+                  })),
+                );
+              } else {
+                console.info("No se detectó overflow horizontal.");
+              }
+              console.groupEnd();
+
+              return offenders;
+            };
+
+            const scanWithDebounce = () => {
+              window.clearTimeout(timerId);
+              timerId = window.setTimeout(scanOverflow, 140);
+            };
+
+            const setupOutlineHelper = () => {
+              window.__overflowDebugScan = scanOverflow;
+              window.__overflowDebugOutline = (enabled = true) => {
+                document.querySelectorAll("[data-overflow-offender]").forEach((el) => {
+                  el.removeAttribute("data-overflow-offender");
+                  el.style.outline = "";
+                });
+                if (!enabled) return;
+                const offenders = scanOverflow();
+                offenders.forEach((item) => {
+                  item.el.setAttribute("data-overflow-offender", "true");
+                  item.el.style.outline = "2px solid #ff2d2d";
+                });
+              };
+            };
+
+            window.addEventListener("load", () => {
+              setupOutlineHelper();
+              scanWithDebounce();
+            });
+
+            window.addEventListener("resize", scanWithDebounce);
+            window.addEventListener("orientationchange", scanWithDebounce);
+            window.visualViewport?.addEventListener("resize", scanWithDebounce);
+
+            document.addEventListener("click", () => {
+              scanWithDebounce();
+            });
+
+            const observer = new MutationObserver(scanWithDebounce);
+            observer.observe(document.body, {
+              childList: true,
+              subtree: true,
+              attributes: true,
+              attributeFilter: ["class", "style", "open", "aria-hidden"],
+            });
+          })();
+        </script>
+      )
+    }
   </body>
 </html>

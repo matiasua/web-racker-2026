@@ -86,6 +86,7 @@ import { company, formRecipients, systems } from '../data';
     const originInput = document.getElementById('quote-origin');
     const emailCopyInput = document.getElementById('quote-email-copy');
     const body = document.body;
+    const html = document.documentElement;
     const form = modal.querySelector('.quote-form');
     const feedback = modal.querySelector('#quote-feedback');
     const feedbackIcon = modal.querySelector('.quote-form__feedback-icon');
@@ -96,6 +97,39 @@ import { company, formRecipients, systems } from '../data';
     const emailInput = form?.querySelector('input[name="_replyto"]');
     let autoCloseTimer = null;
     let closeAnimationTimer = null;
+    let lastTrigger = null;
+    let savedScrollY = 0;
+    let isLocked = false;
+
+    const unlockBodyScroll = (restore = true) => {
+      html.classList.remove('modal-open');
+      body.classList.remove('modal-open');
+      body.style.position = '';
+      body.style.top = '';
+      body.style.left = '';
+      body.style.right = '';
+      body.style.width = '';
+      body.style.paddingRight = '';
+      isLocked = false;
+      document.body.scrollLeft = 0;
+      document.documentElement.scrollLeft = 0;
+      if (restore) {
+        window.scrollTo(0, savedScrollY);
+      }
+    };
+
+    const lockBodyScroll = () => {
+      savedScrollY = window.scrollY || window.pageYOffset || 0;
+      html.classList.add('modal-open');
+      body.classList.add('modal-open');
+      body.style.position = 'fixed';
+      body.style.top = `-${savedScrollY}px`;
+      body.style.left = '0';
+      body.style.right = '0';
+      body.style.width = '100%';
+      body.style.paddingRight = '0px';
+      isLocked = true;
+    };
 
     const clearAutoClose = () => {
       if (autoCloseTimer) {
@@ -139,6 +173,7 @@ import { company, formRecipients, systems } from '../data';
     };
 
     const openModal = (trigger) => {
+      lastTrigger = trigger instanceof HTMLElement ? trigger : null;
       const parentMenu = trigger.closest('.mobile-menu');
       if (parentMenu instanceof HTMLDetailsElement) {
         parentMenu.open = false;
@@ -146,7 +181,9 @@ import { company, formRecipients, systems } from '../data';
 
       modal.classList.add('is-open');
       modal.setAttribute('aria-hidden', 'false');
-      body.classList.add('modal-open');
+      if (!isLocked) {
+        lockBodyScroll();
+      }
       clearAutoClose();
       clearFeedback();
 
@@ -167,12 +204,25 @@ import { company, formRecipients, systems } from '../data';
     };
 
     const closeModal = () => {
+      const active = document.activeElement;
+      if (active instanceof HTMLElement && modal.contains(active)) {
+        active.blur();
+      }
+
       clearAutoClose();
       modal.classList.remove('is-open');
       modal.setAttribute('aria-hidden', 'true');
-      body.classList.remove('modal-open');
+      unlockBodyScroll(true);
       clearFeedback();
+
+      if (lastTrigger instanceof HTMLElement) {
+        window.setTimeout(() => {
+          lastTrigger?.focus?.();
+        }, 0);
+      }
     };
+
+    unlockBodyScroll(false);
 
     document.addEventListener('click', (event) => {
       const target = event.target;

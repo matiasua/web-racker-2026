@@ -94,6 +94,8 @@ import { company, formRecipients, systems } from '../data';
   }
 
   .contact-quote__info {
+    min-width: 0;
+    overflow: hidden;
     border: 1px solid rgba(10, 23, 48, 0.08);
     border-radius: 24px;
     padding: clamp(1rem, 2.2vw, 1.6rem);
@@ -137,6 +139,8 @@ import { company, formRecipients, systems } from '../data';
   }
 
   .contact-quote__form-shell {
+    min-width: 0;
+    overflow: hidden;
     border: 1px solid rgba(10, 23, 48, 0.12);
     border-radius: 24px;
     padding: clamp(0.85rem, 2vw, 1.25rem);
@@ -169,6 +173,8 @@ import { company, formRecipients, systems } from '../data';
   }
 
   .contact-quote-form {
+    min-width: 0;
+    overflow: hidden;
     gap: 0.72rem;
     border: 1px solid rgba(10, 23, 48, 0.09);
     border-radius: 20px;
@@ -194,6 +200,10 @@ import { company, formRecipients, systems } from '../data';
     gap: 0.62rem;
   }
 
+  .contact-quote-form .quote-form__grid > * {
+    min-width: 0;
+  }
+
   .contact-quote-form .quote-product__name {
     font-size: clamp(0.92rem, 1.4vw, 1.05rem);
   }
@@ -204,7 +214,7 @@ import { company, formRecipients, systems } from '../data';
     background: #f7faff;
   }
 
-  .contact-quote-form input,
+  .contact-quote-form input:not([type='hidden']):not([type='radio']),
   .contact-quote-form textarea {
     border-radius: 14px;
     border-color: rgba(13, 27, 42, 0.17);
