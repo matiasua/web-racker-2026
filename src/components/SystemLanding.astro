@@ -1,0 +1,335 @@
+---
+import { company } from "../data";
+
+const {
+  systemName,
+  summary,
+  overview,
+  image,
+  imageAlt,
+  idealFor,
+  benefits,
+  applications,
+  considerations,
+  related,
+} = Astro.props;
+---
+
+<section class="section system-landing-intro">
+  <div class="container split system-landing-intro__grid">
+    <figure class="system-landing-media">
+      <img src={image} alt={imageAlt} loading="eager" />
+    </figure>
+
+    <div class="system-landing-copy">
+      <span class="eyebrow">Solución industrial</span>
+      <h2>Descripción ampliada</h2>
+      <p class="lead">{summary}</p>
+      <p>{overview}</p>
+      <div class="system-landing-actions">
+        <a
+          href="/contacto#cotizar"
+          class="btn btn--primary"
+          data-quote-trigger
+          data-quote-product={systemName}
+        >
+          Solicitar asesoría
+        </a>
+        <a
+          href={company.whatsapp}
+          class="btn btn--secondary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Hablar por WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt system-landing-section">
+  <div class="container">
+    <div class="section-heading system-landing-heading">
+      <div>
+        <span class="eyebrow">Evaluación técnica</span>
+        <h2>Cuándo conviene esta solución</h2>
+      </div>
+      <a href="/servicios/" class="btn btn--secondary">Ver servicios</a>
+    </div>
+
+    <div class="system-landing-card-grid">
+      {idealFor.map((item) => (
+        <article class="system-landing-card">
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section system-landing-section">
+  <div class="container system-landing-two-col">
+    <div>
+      <span class="eyebrow">Beneficios</span>
+      <h2>Beneficios principales</h2>
+      <ul class="system-landing-list">
+        {benefits.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+
+    <div>
+      <span class="eyebrow">Uso operativo</span>
+      <h2>Aplicaciones frecuentes</h2>
+      <ul class="system-landing-list system-landing-list--accent">
+        {applications.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt system-landing-section">
+  <div class="container">
+    <div class="system-landing-panel">
+      <div>
+        <span class="eyebrow">Proyecto</span>
+        <h2>Consideraciones técnicas</h2>
+      </div>
+      <div class="system-landing-considerations">
+        {considerations.map((item) => (
+          <article>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--dark system-landing-related">
+  <div class="container">
+    <div class="section-heading system-landing-heading">
+      <div>
+        <span class="eyebrow">También puede interesarte</span>
+        <h2>Soluciones relacionadas</h2>
+      </div>
+      <a href="/contacto#cotizar" class="btn btn--ghost-light" data-quote-trigger data-quote-product={systemName}>
+        Solicita asesoría para tu proyecto de almacenaje
+      </a>
+    </div>
+
+    <div class="system-landing-related-grid">
+      {related.map((item) => (
+        <a class="system-landing-related-card" href={item.href}>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .system-landing-intro__grid {
+    align-items: stretch;
+  }
+
+  .system-landing-media {
+    margin: 0;
+    overflow: hidden;
+    min-height: 420px;
+    border-radius: 24px;
+    border: 1px solid rgba(10, 23, 48, 0.1);
+    background: #d9e3ef;
+    box-shadow: 0 18px 34px rgba(10, 23, 48, 0.1);
+  }
+
+  .system-landing-media img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .system-landing-copy,
+  .system-landing-card,
+  .system-landing-panel {
+    border: 1px solid rgba(10, 23, 48, 0.1);
+    border-radius: 24px;
+    background:
+      linear-gradient(180deg, #ffffff 0%, #f6f9fe 100%),
+      radial-gradient(circle at 100% 0%, rgba(255, 138, 29, 0.1), transparent 36%);
+    box-shadow: 0 16px 32px rgba(10, 23, 48, 0.08);
+  }
+
+  .system-landing-copy {
+    padding: clamp(1.2rem, 2.5vw, 2rem);
+  }
+
+  .system-landing-copy h2,
+  .system-landing-section h2,
+  .system-landing-related h2 {
+    color: #132443;
+  }
+
+  .system-landing-copy p:not(.lead),
+  .system-landing-card p,
+  .system-landing-considerations p,
+  .system-landing-related-card p {
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  .system-landing-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.25rem;
+  }
+
+  .system-landing-heading {
+    align-items: center;
+  }
+
+  .system-landing-card-grid,
+  .system-landing-related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .system-landing-card,
+  .system-landing-related-card {
+    padding: 1.25rem;
+  }
+
+  .system-landing-card h3,
+  .system-landing-considerations h3,
+  .system-landing-related-card h3 {
+    margin: 0 0 0.55rem;
+    color: #174f97;
+    font-size: 1.16rem;
+  }
+
+  .system-landing-card p,
+  .system-landing-considerations p,
+  .system-landing-related-card p {
+    margin: 0;
+  }
+
+  .system-landing-two-col {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .system-landing-list {
+    display: grid;
+    gap: 0.75rem;
+    padding: 0;
+    margin: 1rem 0 0;
+    list-style: none;
+  }
+
+  .system-landing-list li {
+    position: relative;
+    padding: 0.95rem 1rem 0.95rem 2.35rem;
+    border: 1px solid rgba(10, 23, 48, 0.09);
+    border-radius: 18px;
+    background: #fff;
+    color: #25344d;
+    line-height: 1.55;
+  }
+
+  .system-landing-list li::before {
+    content: "";
+    position: absolute;
+    left: 1rem;
+    top: 1.18rem;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 999px;
+    background: var(--primary);
+    box-shadow: 0 0 0 4px rgba(15, 76, 151, 0.1);
+  }
+
+  .system-landing-list--accent li::before {
+    background: var(--accent);
+    box-shadow: 0 0 0 4px rgba(255, 138, 29, 0.14);
+  }
+
+  .system-landing-panel {
+    display: grid;
+    grid-template-columns: 0.72fr 1.28fr;
+    gap: 1.25rem;
+    padding: clamp(1.2rem, 2.5vw, 2rem);
+  }
+
+  .system-landing-considerations {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .system-landing-considerations article {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(10, 23, 48, 0.1);
+  }
+
+  .system-landing-considerations article:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .system-landing-related h2,
+  .system-landing-related .system-landing-related-card h3 {
+    color: #fff;
+  }
+
+  .system-landing-related-card {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.06);
+    transition:
+      transform 0.2s ease,
+      border-color 0.2s ease,
+      background 0.2s ease;
+  }
+
+  .system-landing-related-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 138, 29, 0.55);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .system-landing-related-card p {
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  @media (max-width: 1024px) {
+    .system-landing-card-grid,
+    .system-landing-related-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .system-landing-two-col,
+    .system-landing-panel {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .system-landing-media {
+      min-height: 280px;
+    }
+
+    .system-landing-card-grid,
+    .system-landing-related-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

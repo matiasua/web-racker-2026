@@ -9,7 +9,7 @@ import { highlights, systems, services } from '../data';
 ---
 <BaseLayout
   title="Racker | Soluciones en Almacenaje Industrial"
-  description="Diseño, fabricación y montaje de sistemas de almacenaje industrial: rack selectivo, drive-in, altillos y protectores de marco."
+  description="Diseño, fabricación y montaje de sistemas de almacenaje industrial: rack selectivo, drive-in y altillos."
 >
   <Header />
   <Hero
@@ -37,6 +37,7 @@ import { highlights, systems, services } from '../data';
       <div class="home-about__intro">
         <span class="eyebrow">Quiénes somos</span>
         <h2>Ingeniería aplicada a almacenaje y operación logística</h2>
+        <span class="home-about__accent" aria-hidden="true"></span>
         <p class="lead">
           Racker acompaña a sus clientes desde el levantamiento técnico hasta la instalación final. Nuestra propuesta se centra en soluciones confiables, layout eficiente y estructuras preparadas para el ritmo real de la industria.
         </p>
@@ -46,13 +47,77 @@ import { highlights, systems, services } from '../data';
           <span>Montaje en terreno</span>
         </div>
       </div>
-      <div class="panel home-about__panel">
-        <ul class="check-list">
-          <li>Levantamiento técnico y diagnóstico operacional</li>
-          <li>Memoria de cálculo y diseño estructural</li>
-          <li>Fabricación, montaje y puesta en marcha</li>
-          <li>Asesoría para ampliaciones y mejoras de layout</li>
-        </ul>
+      <div class="home-about__panel">
+        <header class="home-about__panel-header">
+          <span class="eyebrow">Nuestro enfoque integral</span>
+          <span class="home-about__accent" aria-hidden="true"></span>
+        </header>
+        <div class="home-about__focus-list">
+          <article class="home-about__focus-item">
+            <span class="home-about__focus-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 5h8" />
+                <path d="M9 3h6l1 2h3v16H5V5h3l1-2Z" />
+                <path d="m8 10 1.4 1.4L12 8.8" />
+                <path d="M14 10h3" />
+                <path d="m8 15 1.4 1.4L12 13.8" />
+                <path d="M14 15h3" />
+              </svg>
+            </span>
+            <div>
+              <h3>Levantamiento técnico y diagnóstico operacional</h3>
+              <p>Analizamos tu operación para entender necesidades, flujos y oportunidades reales.</p>
+            </div>
+          </article>
+
+          <article class="home-about__focus-item">
+            <span class="home-about__focus-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M5 9 12 5l7 4-7 4-7-4Z" />
+                <path d="M5 9v7l7 4 7-4V9" />
+                <path d="M12 13v7" />
+                <path d="M8.5 7v8" />
+                <path d="M15.5 7v8" />
+                <path d="M5 12.5 12 16l7-3.5" />
+              </svg>
+            </span>
+            <div>
+              <h3>Memoria de cálculo y diseño estructural</h3>
+              <p>Diseñamos estructuras seguras, eficientes y optimizadas para cada proyecto.</p>
+            </div>
+          </article>
+
+          <article class="home-about__focus-item">
+            <span class="home-about__focus-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M14.7 6.3a4 4 0 0 0-5 5L4 17l3 3 5.7-5.7a4 4 0 0 0 5-5l-2.5 2.5-3-3 2.5-2.5Z" />
+                <path d="M15.5 17.5h4" />
+                <path d="M17.5 15.5v4" />
+              </svg>
+            </span>
+            <div>
+              <h3>Fabricación, montaje y puesta en marcha</h3>
+              <p>Fabricamos con altos estándares, montamos con precisión y aseguramos la entrega final.</p>
+            </div>
+          </article>
+
+          <article class="home-about__focus-item">
+            <span class="home-about__focus-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 19h16" />
+                <path d="M6 16v-4h3v4" />
+                <path d="M11 16V9h3v7" />
+                <path d="M16 16V6h3v10" />
+                <path d="m5 9 5-4 4 3 5-5" />
+                <path d="M16 3h3v3" />
+              </svg>
+            </span>
+            <div>
+              <h3>Asesoría para ampliaciones y mejoras de layout</h3>
+              <p>Optimizamos tu espacio para crecer con eficiencia y rentabilidad operativa.</p>
+            </div>
+          </article>
+        </div>
       </div>
     </div>
   </section>
@@ -151,57 +216,184 @@ import { highlights, systems, services } from '../data';
 
   .home-about {
     align-items: stretch;
-    gap: 1.2rem;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 1.35rem;
   }
 
   .home-about__intro {
+    position: relative;
+    overflow: hidden;
     border-radius: 22px;
     background:
-      linear-gradient(180deg, #eef4fc 0%, rgba(238, 244, 252, 0.35) 100%),
-      radial-gradient(circle at 90% 12%, rgba(255, 138, 29, 0.1), transparent 48%);
-    border: 1px solid rgba(10, 23, 48, 0.08);
-    padding: 1.4rem;
+      linear-gradient(140deg, rgba(255, 255, 255, 0.96), rgba(240, 246, 253, 0.88)),
+      radial-gradient(circle at 88% 18%, rgba(255, 138, 29, 0.11), transparent 38%),
+      linear-gradient(90deg, rgba(15, 76, 151, 0.05) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(15, 76, 151, 0.04) 1px, transparent 1px);
+    background-size: auto, auto, 28px 28px, 28px 28px;
+    border: 1px solid rgba(10, 23, 48, 0.1);
+    box-shadow: 0 18px 40px rgba(12, 28, 52, 0.08);
+    padding: clamp(1.25rem, 3vw, 2.35rem);
+  }
+
+  .home-about__intro::after,
+  .home-about__panel::after {
+    content: "";
+    position: absolute;
+    right: -4rem;
+    bottom: -4.4rem;
+    width: 18rem;
+    height: 18rem;
+    border: 1px solid rgba(15, 76, 151, 0.08);
+    background:
+      linear-gradient(30deg, transparent 47%, rgba(255, 138, 29, 0.22) 48%, rgba(255, 138, 29, 0.22) 51%, transparent 52%),
+      linear-gradient(90deg, rgba(15, 76, 151, 0.07) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(15, 76, 151, 0.06) 1px, transparent 1px);
+    background-size: auto, 24px 24px, 24px 24px;
+    opacity: 0.56;
+    transform: rotate(-8deg);
+    pointer-events: none;
   }
 
   .home-about__intro h2 {
-    margin-bottom: 0.8rem;
+    position: relative;
+    z-index: 1;
+    max-width: 13ch;
+    margin: 0;
+    color: #0d1b2a;
+    font-size: clamp(1.95rem, 3.75vw, 3.35rem);
+    line-height: 1.07;
+    letter-spacing: -0.04em;
+  }
+
+  .home-about__accent {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 56px;
+    height: 3px;
+    margin: 1.1rem 0 1.4rem;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--accent), #ff6d00);
   }
 
   .home-about__intro .lead {
+    position: relative;
+    z-index: 1;
+    max-width: 48ch;
     margin: 0;
+    color: #536176;
+    font-size: 1.02rem;
+    line-height: 1.75;
   }
 
   .home-about__chips {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1rem;
+    gap: 0.65rem;
+    margin-top: 2rem;
   }
 
   .home-about__chips span {
-    border: 1px solid rgba(15, 76, 151, 0.2);
-    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(15, 76, 151, 0.18);
+    background: rgba(255, 255, 255, 0.82);
     color: #184f98;
-    border-radius: 999px;
-    padding: 0.4rem 0.72rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 18px rgba(10, 23, 48, 0.05);
+    padding: 0.56rem 0.76rem;
     font-size: 0.82rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0.01em;
   }
 
   .home-about__panel {
+    position: relative;
+    overflow: hidden;
     border-radius: 22px;
-    border: 1px solid rgba(10, 23, 48, 0.08);
-    background: #fff;
-    box-shadow: 0 14px 30px rgba(12, 28, 52, 0.08);
+    border: 1px solid rgba(10, 23, 48, 0.12);
+    background:
+      linear-gradient(160deg, rgba(255, 255, 255, 0.98), rgba(248, 251, 255, 0.94)),
+      radial-gradient(circle at 100% 45%, rgba(15, 76, 151, 0.07), transparent 42%);
+    box-shadow: 0 18px 40px rgba(12, 28, 52, 0.1);
+    padding: clamp(1.15rem, 2.4vw, 2rem);
   }
 
-  .home-about__panel .check-list li {
-    font-size: 0.97rem;
+  .home-about__panel-header {
+    position: relative;
+    z-index: 1;
+  }
+
+  .home-about__panel-header .eyebrow {
+    margin-bottom: 0;
+    color: #0f315f;
+  }
+
+  .home-about__focus-list {
+    position: relative;
+    z-index: 1;
+    display: grid;
+  }
+
+  .home-about__focus-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(10, 23, 48, 0.1);
+  }
+
+  .home-about__focus-item:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .home-about__focus-icon {
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    color: var(--accent);
+    background:
+      linear-gradient(180deg, #ffffff 0%, #eef4fb 100%),
+      radial-gradient(circle at 50% 20%, rgba(255, 138, 29, 0.14), transparent 60%);
+    border: 1px solid rgba(15, 76, 151, 0.09);
+    box-shadow: 0 12px 22px rgba(10, 23, 48, 0.07);
+  }
+
+  .home-about__focus-icon svg {
+    width: 31px;
+    height: 31px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .home-about__focus-item h3 {
+    margin: 0 0 0.3rem;
+    color: #10213b;
+    font-size: clamp(1rem, 1.6vw, 1.25rem);
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+  }
+
+  .home-about__focus-item p {
+    margin: 0;
+    color: #5a687d;
+    font-size: 0.94rem;
+    line-height: 1.45;
   }
 
   .home-systems-section {
     padding-top: 4.4rem;
+  }
+
+  .home-systems-section .cards-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   @media (max-width: 1024px) {
@@ -217,6 +409,20 @@ import { highlights, systems, services } from '../data';
       padding-top: 3.8rem;
     }
 
+    .home-systems-section .cards-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .home-about {
+      grid-template-columns: 1fr;
+    }
+
+  }
+
+  @media (max-width: 760px) {
+    .home-systems-section .cards-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media (max-width: 760px) {
@@ -246,18 +452,33 @@ import { highlights, systems, services } from '../data';
       line-height: 1.5;
     }
 
-    .home-about__intro,
-    .home-about__panel {
-      padding: 1rem;
-    }
-
     .home-about {
       gap: 0.85rem;
     }
 
+    .home-about__intro,
+    .home-about__panel {
+      padding: 1.05rem;
+      border-radius: 20px;
+    }
+
+    .home-about__intro::after,
+    .home-about__panel::after {
+      width: 12rem;
+      height: 12rem;
+      right: -5rem;
+      bottom: -4rem;
+      opacity: 0.36;
+    }
+
     .home-about__intro h2 {
-      font-size: clamp(1.62rem, 8.3vw, 2.05rem);
+      max-width: 13ch;
+      font-size: clamp(1.9rem, 9vw, 2.55rem);
       line-height: 1.06;
+    }
+
+    .home-about__accent {
+      margin: 1rem 0 1.15rem;
     }
 
     .home-about__intro .lead {
@@ -267,12 +488,36 @@ import { highlights, systems, services } from '../data';
 
     .home-about__chips {
       gap: 0.42rem;
-      margin-top: 0.8rem;
+      margin-top: 1.15rem;
     }
 
     .home-about__chips span {
       font-size: 0.76rem;
       padding: 0.34rem 0.6rem;
+    }
+
+    .home-about__focus-item {
+      gap: 0.75rem;
+      align-items: start;
+      padding: 0.86rem 0;
+    }
+
+    .home-about__focus-icon {
+      width: 46px;
+      height: 46px;
+    }
+
+    .home-about__focus-icon svg {
+      width: 25px;
+      height: 25px;
+    }
+
+    .home-about__focus-item h3 {
+      font-size: 1rem;
+    }
+
+    .home-about__focus-item p {
+      font-size: 0.88rem;
     }
 
     .home-systems-section {
@@ -295,9 +540,5 @@ import { highlights, systems, services } from '../data';
       margin-top: -0.8rem;
     }
 
-    .home-about__panel .check-list li {
-      font-size: 0.92rem;
-      padding-block: 0.54rem;
-    }
   }
 </style>

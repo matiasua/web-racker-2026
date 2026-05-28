@@ -2,13 +2,80 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import SystemLanding from '../../components/SystemLanding.astro';
 import { systems } from '../../data';
 
 const system = systems.find((item) => item.slug === 'altillo-rack');
+
+const landing = {
+  overview:
+    'El altillo rack permite aprovechar la altura disponible de una bodega para aumentar superficie útil sin ejecutar una ampliación física del recinto. Es una solución modular que puede integrarse con sistemas de racks y apoyar zonas de picking, almacenamiento liviano, preparación de pedidos o áreas operativas sobre la misma huella de la bodega.',
+  image: '/images/servicios/altillo_rack_1.jpg',
+  imageAlt: 'Altillo rack para bodega integrado con estructura de almacenaje industrial',
+  idealFor: [
+    {
+      title: 'Altura disponible sin uso',
+      text: 'Conviene cuando la bodega tiene metros verticales disponibles y se necesita aumentar superficie útil sin cambiar de recinto.',
+    },
+    {
+      title: 'Operaciones de picking',
+      text: 'Puede apoyar preparación de pedidos, almacenamiento liviano o zonas de trabajo sobre áreas ya destinadas a almacenaje.',
+    },
+    {
+      title: 'Layouts modulares',
+      text: 'Permite proyectar una solución ajustada al flujo de personas, equipos, pasillos y puntos de acceso.',
+    },
+  ],
+  benefits: [
+    'Aumenta superficie útil aprovechando la altura de la bodega.',
+    'Puede integrarse con estructuras para bodegas y sistemas de rack existentes o proyectados.',
+    'Ayuda a separar zonas de picking, almacenamiento liviano y operación interna.',
+    'Reduce la necesidad de ampliar instalaciones cuando el layout permite crecer en altura.',
+    'Ofrece una alternativa modular para operaciones que requieren cambios progresivos.',
+  ],
+  applications: [
+    'Bodegas con necesidad de sumar niveles para preparación de pedidos o stock liviano.',
+    'Centros de distribución que buscan ordenar áreas operativas sin perder superficie en planta.',
+    'Operaciones que combinan rack selectivo con zonas superiores de trabajo o almacenaje.',
+    'Proyectos de ampliación de superficie útil mediante mezzanine rack.',
+  ],
+  considerations: [
+    {
+      title: 'Carga y uso del nivel superior',
+      text: 'El diseño debe considerar tipo de carga, tránsito de personas, equipos permitidos y uso previsto del altillo para bodega.',
+    },
+    {
+      title: 'Accesos y seguridad operacional',
+      text: 'Escaleras, barandas, puntos de carga y circulación deben definirse según el flujo real de la operación.',
+    },
+    {
+      title: 'Compatibilidad con racks',
+      text: 'La integración con sistemas de almacenaje debe revisar medidas, interferencias, altura libre y continuidad del proceso logístico.',
+    },
+  ],
+  related: [
+    {
+      href: '/sistemas/altillo-industrial/',
+      title: 'Revisa nuestras soluciones de altillo industrial',
+      text: 'Estructuras metálicas para aumentar superficie operativa en bodegas, industrias y centros de distribución.',
+    },
+    {
+      href: '/sistemas/rack-selectivo/',
+      title: 'Conoce el rack selectivo industrial',
+      text: 'Sistema versátil para pallets con acceso directo y alta adaptabilidad operacional.',
+    },
+    {
+      href: '/servicios/',
+      title: 'Servicios de diseño y montaje',
+      text: 'Apoyo técnico para diseño, fabricación e instalación de soluciones de almacenaje.',
+    },
+  ],
+};
 ---
 <BaseLayout
-  title={`${system?.name ?? "Altillo Rack"} | Racker`}
-  description={system?.summary}
+  title="Altillo rack para bodegas y centros de distribución | Racker"
+  description="Altillo rack para ampliar superficie útil en bodegas y operaciones logísticas, integrando estructuras metálicas y sistemas de almacenaje."
+  image="/images/servicios/altillo_rack_1.jpg"
 >
   <Header />
   <section class="page-hero">
@@ -19,20 +86,10 @@ const system = systems.find((item) => item.slug === 'altillo-rack');
     </div>
   </section>
 
-  <section class="section">
-    <div class="container split">
-      <div class="panel panel--media"></div>
-      <div>
-        <h2>Descripción general</h2>
-        <p class="lead">{system?.summary}</p>
-        <ul class="check-list">
-          {system?.benefits.map((item) => <li>{item}</li>)}
-        </ul>
-        <a href="/contacto#cotizar" class="btn btn--primary" data-quote-trigger data-quote-product={system?.name}>
-          Solicitar cotización
-        </a>
-      </div>
-    </div>
-  </section>
+  <SystemLanding
+    systemName={system?.name}
+    summary={system?.summary}
+    {...landing}
+  />
   <Footer />
 </BaseLayout>

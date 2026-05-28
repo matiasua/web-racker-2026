@@ -2,13 +2,80 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import SystemLanding from '../../components/SystemLanding.astro';
 import { systems } from '../../data';
 
 const system = systems.find((item) => item.slug === 'altillo-industrial');
+
+const landing = {
+  overview:
+    'El altillo industrial es una estructura metálica pensada para aumentar superficie operativa dentro de bodegas, industrias y centros de distribución. Permite aprovechar metros cúbicos disponibles y habilitar zonas de almacenamiento, circulación, estaciones de trabajo o áreas productivas según el layout y la carga de uso del proyecto.',
+  image: '/images/servicios/ALTILLO_1_new.jpg',
+  imageAlt: 'Altillo industrial metálico para ampliar superficie operativa en bodega',
+  idealFor: [
+    {
+      title: 'Mayor superficie operativa',
+      text: 'Conviene cuando la operación necesita crecer dentro del mismo recinto y existe altura útil para incorporar un nuevo nivel.',
+    },
+    {
+      title: 'Áreas productivas o de apoyo',
+      text: 'Puede habilitar estaciones de trabajo, zonas de circulación, almacenamiento liviano o sectores de preparación operativa.',
+    },
+    {
+      title: 'Layouts industriales',
+      text: 'Se adapta a bodegas e instalaciones donde el diseño debe convivir con equipos, flujos, accesos y procesos existentes.',
+    },
+  ],
+  benefits: [
+    'Aumenta metros útiles sin ampliar la superficie construida de la instalación.',
+    'Permite ordenar áreas de trabajo, circulación o almacenamiento dentro del layout existente.',
+    'Aprovecha altura disponible en bodegas, industrias y centros de distribución.',
+    'Puede diseñarse según carga de uso, accesos requeridos y operación proyectada.',
+    'Apoya proyectos de ampliación de superficie industrial con estructura metálica para bodega.',
+  ],
+  applications: [
+    'Bodegas que requieren un segundo nivel para almacenamiento liviano o áreas de apoyo.',
+    'Industrias que necesitan separar estaciones de trabajo, tránsito o zonas productivas.',
+    'Centros de distribución que buscan aprovechar metros cúbicos disponibles.',
+    'Proyectos de altillos industriales en Chile orientados a mejorar capacidad operativa.',
+  ],
+  considerations: [
+    {
+      title: 'Uso previsto y carga',
+      text: 'El diseño debe partir por la función del altillo industrial, el tipo de carga y la intensidad de uso esperada.',
+    },
+    {
+      title: 'Interferencias del recinto',
+      text: 'Es necesario revisar pilares, alturas libres, portones, iluminación, circulación y zonas de operación existentes.',
+    },
+    {
+      title: 'Accesos y continuidad operacional',
+      text: 'Escaleras, barandas, puntos de carga y rutas internas deben definirse para que el nuevo nivel sea seguro y práctico.',
+    },
+  ],
+  related: [
+    {
+      href: '/sistemas/altillo-rack/',
+      title: 'Conoce el altillo rack para bodega',
+      text: 'Alternativa modular para aumentar superficie útil integrada con sistemas de racks.',
+    },
+    {
+      href: '/sistemas/rack-drive-in/',
+      title: 'Evalúa rack drive in para alta densidad',
+      text: 'Sistema orientado a maximizar capacidad de pallets reduciendo pasillos.',
+    },
+    {
+      href: '/servicios/',
+      title: 'Servicios de ingeniería aplicada',
+      text: 'Diseño, fabricación, montaje y acompañamiento técnico para proyectos industriales.',
+    },
+  ],
+};
 ---
 <BaseLayout
-  title={`${system?.name ?? "Altillo Industrial"} | Racker`}
-  description={system?.summary}
+  title="Altillo industrial para almacenaje y operación logística | Racker"
+  description="Diseño, fabricación y montaje de altillos industriales para aumentar metros útiles en bodegas, centros de distribución e industria."
+  image="/images/servicios/ALTILLO_1_new.jpg"
 >
   <Header />
   <section class="page-hero">
@@ -19,20 +86,10 @@ const system = systems.find((item) => item.slug === 'altillo-industrial');
     </div>
   </section>
 
-  <section class="section">
-    <div class="container split">
-      <div class="panel panel--media"></div>
-      <div>
-        <h2>Descripción general</h2>
-        <p class="lead">{system?.summary}</p>
-        <ul class="check-list">
-          {system?.benefits.map((item) => <li>{item}</li>)}
-        </ul>
-        <a href="/contacto#cotizar" class="btn btn--primary" data-quote-trigger data-quote-product={system?.name}>
-          Solicitar cotización
-        </a>
-      </div>
-    </div>
-  </section>
+  <SystemLanding
+    systemName={system?.name}
+    summary={system?.summary}
+    {...landing}
+  />
   <Footer />
 </BaseLayout>

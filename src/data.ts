@@ -1,7 +1,7 @@
 export const company = {
   name: 'Racker',
   phone: '+56 9 4411 6800',
-  email: 'd.fica@racker.cl',
+  email: 'r.fica@racker.cl',
   whatsapp: 'https://wa.me/56944116800?text=Hola%2C%20necesito%20Soluciones%20de%20Almacenamiento',
   address: 'Carretera General San Martín 8200, Quilicura, Santiago',
 };
@@ -65,18 +65,6 @@ export const systems = [
       'Diseño según carga y operación',
       'Integración con escaleras y barandas',
       'Terminación industrial de alta resistencia'
-    ]
-  },
-  {
-    slug: 'protectores-de-marco',
-    name: 'Protectores de Marco',
-    summary: 'Elementos de seguridad para proteger pilares, estructuras y equipos de impactos.',
-    hero: 'Complemento clave para extender la vida útil del sistema de almacenaje.',
-    benefits: [
-      'Disminución de daños por maniobras',
-      'Mayor seguridad operativa',
-      'Fácil instalación',
-      'Protección de inversión en racks'
     ]
   }
 ];

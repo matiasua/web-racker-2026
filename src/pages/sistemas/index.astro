@@ -6,9 +6,10 @@ import { systems } from "../../data";
 
 const systemMedia = {
   "rack-selectivo": [
-    "/images/servicios/rack_selectivo_1.jpg",
-    "/images/servicios/rack_selectivo_2.jpg",
-    "/images/servicios/rack_selectivo_3.jpg",
+    "/images/servicios/RACK_SELECTIVO_1_new.jpg",
+    "/images/servicios/RACK_SELECTIVO_2_new.png",
+    "/images/servicios/RACK_SELECTIVO_3_new.jpg",
+    "/images/servicios/RACK_SELECTIVO_4_new.jpg",
   ],
   "rack-drive-in": [
     "/images/servicios/rack_drive_in_1.jpg",
@@ -22,23 +23,25 @@ const systemMedia = {
     "/images/servicios/altillo_rack_3.jpg",
   ],
   "altillo-industrial": [
-    "/images/servicios/altillo_industrial_1.jpg",
-    "/images/servicios/altillo_industrial_2.jpg",
-    "/images/servicios/altillo_industrial_3.jpg",
+    "/images/servicios/ALTILLO_1_new.jpg",
+    "/images/servicios/ALTILLO_2_new.jpg",
+    "/images/servicios/ALTILLO_3_new.jpg",
+    "/images/servicios/ALTILLO_4_new.jpg",
+    "/images/servicios/ALTILLO_5_new.png",
   ],
-  "protectores-de-marco": ["/images/servicios/protector-marco.png"],
 } as const;
 
 const systemsWithMedia = systems.map((system) => ({
   ...system,
   anchorId: `sistema-${system.slug}`,
+  detailUrl: `/sistemas/${system.slug}/`,
   images: systemMedia[system.slug as keyof typeof systemMedia] ?? [],
 }));
 ---
 
 <BaseLayout
   title="Sistemas de Almacenaje Industrial | Racker"
-  description="Explora los sistemas de almacenaje de Racker: rack selectivo, drive-in, altillo rack, altillo industrial y protectores de marco."
+  description="Explora los sistemas de almacenaje de Racker: rack selectivo, drive-in, altillo rack y altillo industrial."
 >
   <Header />
   <section class="page-hero page-hero--small">
@@ -59,7 +62,7 @@ const systemsWithMedia = systems.map((system) => ({
           <article class="system-quick-card">
             <h3>{system.name}</h3>
             <p>{system.summary}</p>
-            <a href={`#${system.anchorId}`} class="btn btn--secondary">
+            <a href={system.detailUrl} class="btn btn--secondary">
               Ver más
             </a>
           </article>
@@ -130,8 +133,7 @@ const systemsWithMedia = systems.map((system) => ({
                 ))}
               </ul>
               <a
-                href="https://wa.me/56944116800?text=Hola%2C%20necesito%20Soluciones%20de%20Almacenamiento"
-                target="_blank"
+                href={system.detailUrl}
                 class="btn btn--primary"
               >
                 Más detalle
@@ -154,7 +156,7 @@ const systemsWithMedia = systems.map((system) => ({
 
   .systems-quick-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 1rem;
     margin-top: -3.4rem;
   }

@@ -2,13 +2,80 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import SystemLanding from '../../components/SystemLanding.astro';
 import { systems } from '../../data';
 
 const system = systems.find((item) => item.slug === 'rack-selectivo');
+
+const landing = {
+  overview:
+    'El rack selectivo industrial es una alternativa versátil para operaciones que necesitan acceso directo a cada pallet, control por ubicación y flexibilidad para manejar distintos SKU. Permite ordenar la bodega sin perder velocidad en tareas de picking, reposición y despacho, por lo que funciona bien en centros de distribución, bodegas industriales y operaciones con rotación variable.',
+  image: '/images/servicios/RACK_SELECTIVO_5_new.jpg',
+  imageAlt: 'Rack selectivo industrial instalado para almacenamiento de pallets en bodega',
+  idealFor: [
+    {
+      title: 'Variedad de SKU',
+      text: 'Conviene cuando la operación maneja múltiples productos y necesita identificar cada posición de almacenaje sin bloquear accesos.',
+    },
+    {
+      title: 'Rotación y preparación de pedidos',
+      text: 'Es útil para bodegas donde el picking, la reposición y el despacho requieren una circulación clara entre pasillos.',
+    },
+    {
+      title: 'Crecimiento gradual',
+      text: 'Permite proyectar ampliaciones o ajustes de layout según altura disponible, tipo de pallet y equipos de movimiento.',
+    },
+  ],
+  benefits: [
+    'Acceso directo a cada pallet para mejorar la trazabilidad y el control operativo.',
+    'Alta adaptabilidad para racks para bodegas con cargas, alturas y flujos distintos.',
+    'Facilita operaciones FIFO o LIFO según la gestión interna de inventario.',
+    'Permite combinar almacenaje de pallets con zonas de preparación y reposición.',
+    'Ayuda a ordenar el espacio disponible sin rigidizar la operación diaria.',
+  ],
+  applications: [
+    'Centros de distribución con surtido amplio y necesidad de despacho frecuente.',
+    'Bodegas industriales que requieren acceso rápido a pallets específicos.',
+    'Operaciones de picking apoyadas por grúas, apiladores o transpaletas.',
+    'Proyectos de almacenaje industrial en Chile que buscan una solución flexible para pallets.',
+  ],
+  considerations: [
+    {
+      title: 'Layout y pasillos',
+      text: 'La definición de pasillos debe considerar equipos de movimiento, radios de giro, zonas de carga y flujo de personas.',
+    },
+    {
+      title: 'Tipo de carga',
+      text: 'El diseño debe revisar peso, dimensiones de pallets, altura útil y frecuencia de acceso por ubicación.',
+    },
+    {
+      title: 'Integración operacional',
+      text: 'Puede complementarse con protecciones, señalización y servicios de montaje para una puesta en marcha ordenada.',
+    },
+  ],
+  related: [
+    {
+      href: '/sistemas/rack-drive-in/',
+      title: 'Conoce nuestro sistema de rack drive in',
+      text: 'Alternativa para almacenamiento de alta densidad cuando se manejan grandes volúmenes por SKU.',
+    },
+    {
+      href: '/sistemas/altillo-rack/',
+      title: 'Revisa nuestras soluciones de altillo rack',
+      text: 'Opción para aprovechar altura disponible y sumar superficie útil sobre estructuras de almacenaje.',
+    },
+    {
+      href: '/servicios/',
+      title: 'Servicios de ingeniería y montaje',
+      text: 'Levantamiento, diseño, fabricación y montaje para proyectos de almacenaje industrial.',
+    },
+  ],
+};
 ---
 <BaseLayout
-  title={`${system?.name ?? "Rack Selectivo"} | Racker`}
-  description={system?.summary}
+  title="Rack selectivo industrial en Chile | Racker"
+  description="Sistema de rack selectivo para bodegas y centros de distribución. Diseño, fabricación y montaje de soluciones de almacenaje industrial en Chile."
+  image="/images/servicios/RACK_SELECTIVO_5_new.jpg"
 >
   <Header />
   <section class="page-hero">
@@ -19,20 +86,10 @@ const system = systems.find((item) => item.slug === 'rack-selectivo');
     </div>
   </section>
 
-  <section class="section">
-    <div class="container split">
-      <div class="panel panel--media"></div>
-      <div>
-        <h2>Descripción general</h2>
-        <p class="lead">{system?.summary}</p>
-        <ul class="check-list">
-          {system?.benefits.map((item) => <li>{item}</li>)}
-        </ul>
-        <a href="/contacto#cotizar" class="btn btn--primary" data-quote-trigger data-quote-product={system?.name}>
-          Solicitar cotización
-        </a>
-      </div>
-    </div>
-  </section>
+  <SystemLanding
+    systemName={system?.name}
+    summary={system?.summary}
+    {...landing}
+  />
   <Footer />
 </BaseLayout>

@@ -2,13 +2,80 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import SystemLanding from '../../components/SystemLanding.astro';
 import { systems } from '../../data';
 
 const system = systems.find((item) => item.slug === 'rack-drive-in');
+
+const landing = {
+  overview:
+    'El rack drive in está orientado a maximizar capacidad de almacenaje en bodegas donde predominan productos homogéneos o grandes volúmenes por SKU. Al reducir la cantidad de pasillos y permitir almacenamiento en profundidad, ayuda a aprovechar mejor el espacio disponible sin ampliar la superficie de la bodega.',
+  image: '/images/servicios/rack_drive_in_1.jpg',
+  imageAlt: 'Rack drive in para almacenamiento de alta densidad de pallets en bodega industrial',
+  idealFor: [
+    {
+      title: 'Alta densidad de pallets',
+      text: 'Conviene cuando la prioridad es aumentar posiciones de almacenamiento y se puede trabajar por calles o bloques de producto.',
+    },
+    {
+      title: 'Productos homogéneos',
+      text: 'Funciona especialmente bien con referencias de alta repetición, lotes grandes o productos con menor variedad operacional.',
+    },
+    {
+      title: 'Optimización de espacio',
+      text: 'Es una alternativa cuando la bodega necesita reducir pasillos y aprovechar más metros cúbicos disponibles.',
+    },
+  ],
+  benefits: [
+    'Aumenta la capacidad de almacenaje al trabajar con profundidad por calles.',
+    'Reduce la superficie destinada a pasillos frente a configuraciones de acceso individual.',
+    'Ayuda a ordenar grandes volúmenes por SKU dentro de una estructura robusta para pallets.',
+    'Puede apoyar operaciones LIFO cuando el flujo del producto lo permite.',
+    'Permite evaluar una solución de rack industrial para pallets enfocada en densidad.',
+  ],
+  applications: [
+    'Bodegas de productos palletizados con baja variedad y alto volumen por referencia.',
+    'Cámaras de frío o espacios donde cada metro disponible tiene impacto operativo.',
+    'Centros de almacenamiento que priorizan capacidad por sobre acceso directo a cada pallet.',
+    'Proyectos de optimización de espacio en bodegas industriales o logísticas.',
+  ],
+  considerations: [
+    {
+      title: 'Perfil de inventario',
+      text: 'Antes de elegir rack drive in, conviene revisar rotación, cantidad de SKU, lotes y necesidad real de selectividad.',
+    },
+    {
+      title: 'Equipos y operación',
+      text: 'El diseño debe considerar dimensiones de grúas, maniobras dentro de calles, profundidad útil y seguridad de circulación.',
+    },
+    {
+      title: 'Balance capacidad-selectividad',
+      text: 'La alta densidad implica menor acceso individual; por eso el layout debe alinearse con la forma de entrada y salida del producto.',
+    },
+  ],
+  related: [
+    {
+      href: '/sistemas/rack-selectivo/',
+      title: 'Compara con rack selectivo industrial',
+      text: 'Solución recomendada cuando se requiere acceso directo a cada pallet y mayor variedad de SKU.',
+    },
+    {
+      href: '/sistemas/altillo-industrial/',
+      title: 'Revisa nuestras soluciones de altillo industrial',
+      text: 'Estructuras metálicas para aumentar superficie operativa dentro de bodegas e industria.',
+    },
+    {
+      href: '/servicios/',
+      title: 'Servicios de levantamiento técnico',
+      text: 'Evaluación de layout, capacidad, flujo operacional y montaje para proyectos de almacenaje.',
+    },
+  ],
+};
 ---
 <BaseLayout
-  title={`${system?.name ?? "Rack Drive In"} | Racker`}
-  description={system?.summary}
+  title="Rack Drive In para bodegas de alta densidad | Racker"
+  description="Soluciones de rack drive in para almacenamiento de alta densidad, optimización de espacio y operación logística en bodegas industriales."
+  image="/images/servicios/rack_drive_in_1.jpg"
 >
   <Header />
   <section class="page-hero">
@@ -19,20 +86,10 @@ const system = systems.find((item) => item.slug === 'rack-drive-in');
     </div>
   </section>
 
-  <section class="section">
-    <div class="container split">
-      <div class="panel panel--media"></div>
-      <div>
-        <h2>Descripción general</h2>
-        <p class="lead">{system?.summary}</p>
-        <ul class="check-list">
-          {system?.benefits.map((item) => <li>{item}</li>)}
-        </ul>
-        <a href="/contacto#cotizar" class="btn btn--primary" data-quote-trigger data-quote-product={system?.name}>
-          Solicitar cotización
-        </a>
-      </div>
-    </div>
-  </section>
+  <SystemLanding
+    systemName={system?.name}
+    summary={system?.summary}
+    {...landing}
+  />
   <Footer />
 </BaseLayout>

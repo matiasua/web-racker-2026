@@ -2,17 +2,13 @@
 const { name, summary, slug } = Astro.props;
 
 const imageMap: Record<string, { src: string; fit?: "cover" | "contain" }> = {
-  "rack-selectivo": { src: "/images/servicios/rack_selectivo_1.jpg" },
+  "rack-selectivo": { src: "/images/servicios/RACK_SELECTIVO_5_new.jpg" },
   "rack-drive-in": { src: "/images/servicios/rack_drive_in_1.jpg" },
   "altillo-rack": { src: "/images/servicios/altillo_rack_1.jpg" },
-  "altillo-industrial": { src: "/images/servicios/altillo_industrial_1.jpg" },
-  "protectores-de-marco": {
-    src: "/images/servicios/protector-marco.png",
-    fit: "contain",
-  },
+  "altillo-industrial": { src: "/images/servicios/ALTILLO_1_new.jpg" },
 };
 
-const media = imageMap[slug] ?? { src: "/images/servicios/rack_selectivo_1.jpg" };
+const media = imageMap[slug] ?? { src: "/images/servicios/RACK_SELECTIVO_5_new.jpg" };
 ---
 <article class="card">
   <div class={`card__media ${media.fit === "contain" ? "card__media--contain" : ""}`}>
@@ -21,6 +17,6 @@ const media = imageMap[slug] ?? { src: "/images/servicios/rack_selectivo_1.jpg" 
   <div class="card__body">
     <h3>{name}</h3>
     <p>{summary}</p>
-    <a class="btn btn--secondary" href={`/sistemas#sistema-${slug}`}>Ver solución</a>
+    <a class="btn btn--secondary" href={`/sistemas/${slug}/`}>Ver solución</a>
   </div>
 </article>

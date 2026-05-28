@@ -16,19 +16,84 @@ import Footer from '../components/Footer.astro';
     </div>
   </section>
 
-  <section class="section">
-    <div class="container split">
-      <div>
+  <section class="section about-difference-section">
+    <div class="container about-difference">
+      <div class="about-difference__intro">
+        <span class="eyebrow">Diferencial Racker</span>
         <h2>Qué hace diferente a Racker</h2>
+        <span class="about-difference__accent" aria-hidden="true"></span>
         <p class="lead">Trabajamos con una mirada de ingeniería y operación. No se trata sólo de vender racks, sino de proyectar una bodega funcional, segura y rentable.</p>
       </div>
-      <div class="panel">
-        <ul class="check-list">
-          <li>Enfoque técnico y comercial alineado</li>
-          <li>Diseños adaptados a flujo real de carga</li>
-          <li>Equipos pensados para uso industrial intensivo</li>
-          <li>Acompañamiento antes, durante y después del montaje</li>
-        </ul>
+      <div class="about-difference__panel">
+        <header class="about-difference__panel-header">
+          <span class="eyebrow">Nuestra forma de trabajar</span>
+          <span class="about-difference__accent" aria-hidden="true"></span>
+        </header>
+        <div class="about-difference__list">
+          <article class="about-difference__item">
+            <span class="about-difference__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 18V7.5A2.5 2.5 0 0 1 6.5 5H11" />
+                <path d="M13 19H6.5A2.5 2.5 0 0 1 4 16.5" />
+                <path d="M14 5h6v6" />
+                <path d="m20 5-8 8" />
+                <path d="M8 13h4v4H8z" />
+              </svg>
+            </span>
+            <div>
+              <h3>Enfoque técnico y comercial alineado</h3>
+              <p>Unimos criterio de ingeniería con una mirada práctica del negocio.</p>
+            </div>
+          </article>
+
+          <article class="about-difference__item">
+            <span class="about-difference__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 17h16" />
+                <path d="M5 13h4v4H5z" />
+                <path d="M10 9h4v8h-4z" />
+                <path d="M15 6h4v11h-4z" />
+                <path d="M5 7c3.5 0 4.5 3 7 3s3.5-3 7-3" />
+              </svg>
+            </span>
+            <div>
+              <h3>Diseños adaptados a flujo real de carga</h3>
+              <p>Proyectamos soluciones pensadas para la operación diaria de cada bodega.</p>
+            </div>
+          </article>
+
+          <article class="about-difference__item">
+            <span class="about-difference__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M5 19V8l7-4 7 4v11" />
+                <path d="M8 19v-7h8v7" />
+                <path d="M8 12h8" />
+                <path d="M10 8h4" />
+                <path d="M4 19h16" />
+              </svg>
+            </span>
+            <div>
+              <h3>Equipos pensados para uso industrial intensivo</h3>
+              <p>Estructuras preparadas para exigencias reales de almacenamiento y movimiento.</p>
+            </div>
+          </article>
+
+          <article class="about-difference__item">
+            <span class="about-difference__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M6 19h12" />
+                <path d="M8 16h8" />
+                <path d="M12 5v11" />
+                <path d="m8 9 4-4 4 4" />
+                <path d="M5 12a7 7 0 0 0 14 0" />
+              </svg>
+            </span>
+            <div>
+              <h3>Acompañamiento antes, durante y después del montaje</h3>
+              <p>Apoyamos el proceso completo, desde el levantamiento hasta la puesta en marcha.</p>
+            </div>
+          </article>
+        </div>
       </div>
     </div>
   </section>
@@ -94,6 +159,162 @@ import Footer from '../components/Footer.astro';
 </BaseLayout>
 
 <style>
+  .about-difference-section {
+    background: linear-gradient(180deg, #f5f7fb 0%, #eef3f8 100%);
+  }
+
+  .about-difference {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: 1.35rem;
+    align-items: stretch;
+  }
+
+  .about-difference__intro,
+  .about-difference__panel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+    border: 1px solid rgba(10, 23, 48, 0.1);
+    box-shadow: 0 18px 40px rgba(12, 28, 52, 0.08);
+  }
+
+  .about-difference__intro {
+    padding: clamp(1.25rem, 3vw, 2.35rem);
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(241, 247, 253, 0.9)),
+      radial-gradient(circle at 92% 14%, rgba(255, 138, 29, 0.11), transparent 38%),
+      linear-gradient(90deg, rgba(15, 76, 151, 0.05) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(15, 76, 151, 0.04) 1px, transparent 1px);
+    background-size: auto, auto, 28px 28px, 28px 28px;
+  }
+
+  .about-difference__intro::after,
+  .about-difference__panel::after {
+    content: "";
+    position: absolute;
+    right: -4.6rem;
+    bottom: -4.8rem;
+    width: 18rem;
+    height: 18rem;
+    border: 1px solid rgba(15, 76, 151, 0.08);
+    background:
+      linear-gradient(30deg, transparent 47%, rgba(255, 138, 29, 0.2) 48%, rgba(255, 138, 29, 0.2) 51%, transparent 52%),
+      linear-gradient(90deg, rgba(15, 76, 151, 0.07) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(15, 76, 151, 0.06) 1px, transparent 1px);
+    background-size: auto, 24px 24px, 24px 24px;
+    opacity: 0.5;
+    transform: rotate(-8deg);
+    pointer-events: none;
+  }
+
+  .about-difference__intro h2 {
+    position: relative;
+    z-index: 1;
+    max-width: 12ch;
+    margin: 0;
+    color: #0d1b2a;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    line-height: 1.06;
+    letter-spacing: -0.04em;
+  }
+
+  .about-difference__accent {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 56px;
+    height: 3px;
+    margin: 1rem 0 1.35rem;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--accent), #ff6d00);
+  }
+
+  .about-difference__intro .lead {
+    position: relative;
+    z-index: 1;
+    max-width: 46ch;
+    margin: 0;
+    color: #536176;
+    font-size: 1.03rem;
+    line-height: 1.75;
+  }
+
+  .about-difference__panel {
+    padding: clamp(1.15rem, 2.3vw, 2rem);
+    background:
+      linear-gradient(160deg, rgba(255, 255, 255, 0.99), rgba(248, 251, 255, 0.94)),
+      radial-gradient(circle at 100% 42%, rgba(15, 76, 151, 0.07), transparent 42%);
+  }
+
+  .about-difference__panel-header,
+  .about-difference__list {
+    position: relative;
+    z-index: 1;
+  }
+
+  .about-difference__panel-header .eyebrow {
+    margin-bottom: 0;
+    color: #0f315f;
+  }
+
+  .about-difference__list {
+    display: grid;
+  }
+
+  .about-difference__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(10, 23, 48, 0.1);
+  }
+
+  .about-difference__item:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .about-difference__icon {
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    color: var(--accent);
+    background:
+      linear-gradient(180deg, #ffffff 0%, #eef4fb 100%),
+      radial-gradient(circle at 50% 20%, rgba(255, 138, 29, 0.14), transparent 60%);
+    border: 1px solid rgba(15, 76, 151, 0.09);
+    box-shadow: 0 12px 22px rgba(10, 23, 48, 0.07);
+  }
+
+  .about-difference__icon svg {
+    width: 31px;
+    height: 31px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .about-difference__item h3 {
+    margin: 0 0 0.3rem;
+    color: #10213b;
+    font-size: clamp(1rem, 1.45vw, 1.22rem);
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+  }
+
+  .about-difference__item p {
+    margin: 0;
+    color: #5a687d;
+    font-size: 0.94rem;
+    line-height: 1.45;
+  }
+
   .about-process {
     background: linear-gradient(180deg, #edf3fb 0%, #e8eef8 100%);
     padding: 3.4rem 0;
@@ -201,6 +422,10 @@ import Footer from '../components/Footer.astro';
   }
 
   @media (max-width: 1024px) {
+    .about-difference {
+      grid-template-columns: 1fr;
+    }
+
     .about-process {
       padding: 3rem 0;
     }
@@ -218,6 +443,63 @@ import Footer from '../components/Footer.astro';
   }
 
   @media (max-width: 760px) {
+    .about-difference {
+      gap: 0.9rem;
+    }
+
+    .about-difference__intro,
+    .about-difference__panel {
+      border-radius: 20px;
+      padding: 1.05rem;
+    }
+
+    .about-difference__intro::after,
+    .about-difference__panel::after {
+      width: 12rem;
+      height: 12rem;
+      right: -5rem;
+      bottom: -4rem;
+      opacity: 0.34;
+    }
+
+    .about-difference__intro h2 {
+      max-width: 13ch;
+      font-size: clamp(1.9rem, 9vw, 2.55rem);
+    }
+
+    .about-difference__intro .lead {
+      font-size: 0.96rem;
+      line-height: 1.55;
+    }
+
+    .about-difference__accent {
+      margin: 0.9rem 0 1.05rem;
+    }
+
+    .about-difference__item {
+      gap: 0.75rem;
+      align-items: start;
+      padding: 0.86rem 0;
+    }
+
+    .about-difference__icon {
+      width: 46px;
+      height: 46px;
+    }
+
+    .about-difference__icon svg {
+      width: 25px;
+      height: 25px;
+    }
+
+    .about-difference__item h3 {
+      font-size: 1rem;
+    }
+
+    .about-difference__item p {
+      font-size: 0.88rem;
+    }
+
     .about-process {
       padding: 2.6rem 0;
     }

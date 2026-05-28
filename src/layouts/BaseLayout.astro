@@ -1,6 +1,7 @@
 ---
 import QuoteModal from "../components/QuoteModal.astro";
 import WhatsAppFloat from "../components/WhatsAppFloat.astro";
+import { company } from "../data";
 import "../styles/global.css";
 
 const {
@@ -25,15 +26,33 @@ const jsonLd = [
     name: "Racker",
     url: siteUrl,
     logo: new URL("/images/Logo_Racker.png", baseUrl).toString(),
+    email: company.email,
     contactPoint: [
       {
         "@type": "ContactPoint",
-        telephone: "+56 9 4411 6800",
+        telephone: company.phone,
         contactType: "sales",
         areaServed: "CL",
         availableLanguage: ["es"],
       },
     ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "Racker",
+    url: siteUrl,
+    logo: new URL("/images/Logo_Racker.png", baseUrl).toString(),
+    image: ogImage,
+    email: company.email,
+    telephone: company.phone,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Carretera General San Martín 8200",
+      addressLocality: "Quilicura",
+      addressRegion: "Región Metropolitana",
+      addressCountry: "CL",
+    },
   },
   {
     "@context": "https://schema.org",
