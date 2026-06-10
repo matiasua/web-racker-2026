@@ -1,5 +1,6 @@
 ---
 import { company } from "../data";
+import SystemCarousel from "./SystemCarousel.astro";
 
 const {
   systemName,
@@ -7,18 +8,29 @@ const {
   overview,
   image,
   imageAlt,
+  gallery,
   idealFor,
   benefits,
   applications,
   considerations,
   related,
 } = Astro.props;
+
+const galleryImages = gallery ?? [];
 ---
 
 <section class="section system-landing-intro">
   <div class="container split system-landing-intro__grid">
-    <figure class="system-landing-media">
-      <img src={image} alt={imageAlt} loading="eager" />
+    <figure class={`system-landing-media ${galleryImages.length > 1 ? "system-landing-media--gallery" : ""}`}>
+      {galleryImages.length > 1 ? (
+        <SystemCarousel
+          images={galleryImages}
+          label={`Galería de ${systemName}`}
+          loading="eager"
+        />
+      ) : (
+        <img src={image} alt={imageAlt} loading="eager" />
+      )}
     </figure>
 
     <div class="system-landing-copy">
@@ -115,7 +127,7 @@ const {
         <span class="eyebrow">También puede interesarte</span>
         <h2>Soluciones relacionadas</h2>
       </div>
-      <a href="/contacto#cotizar" class="btn btn--ghost-light" data-quote-trigger data-quote-product={systemName}>
+      <a href="/contacto#cotizar" class="btn btn--ghost-light system-landing-related-cta" data-quote-trigger data-quote-product={systemName}>
         Solicita asesoría para tu proyecto de almacenaje
       </a>
     </div>
@@ -151,6 +163,19 @@ const {
     height: 100%;
     display: block;
     object-fit: cover;
+  }
+
+  .system-landing-media--gallery :global(.system-carousel) {
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .system-landing-media--gallery :global(.system-carousel__viewport) {
+    min-height: 420px;
+    height: 100%;
+    aspect-ratio: auto;
   }
 
   .system-landing-copy,
@@ -287,6 +312,18 @@ const {
     color: #fff;
   }
 
+  .system-landing-related-cta {
+    background: linear-gradient(135deg, var(--accent), #ff6d00);
+    color: #fff;
+    border-color: rgba(255, 138, 29, 0.92);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.24);
+  }
+
+  .system-landing-related-cta:hover {
+    border-color: #ff9d3d;
+    box-shadow: 0 18px 34px rgba(0, 0, 0, 0.3);
+  }
+
   .system-landing-related-card {
     display: block;
     color: inherit;
@@ -324,6 +361,10 @@ const {
 
   @media (max-width: 760px) {
     .system-landing-media {
+      min-height: 280px;
+    }
+
+    .system-landing-media--gallery :global(.system-carousel__viewport) {
       min-height: 280px;
     }
 

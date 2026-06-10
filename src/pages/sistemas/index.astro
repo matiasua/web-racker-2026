@@ -2,32 +2,68 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import SystemCarousel from "../../components/SystemCarousel.astro";
 import { systems } from "../../data";
 
 const systemMedia = {
   "rack-selectivo": [
-    "/images/servicios/RACK_SELECTIVO_1_new.jpg",
-    "/images/servicios/RACK_SELECTIVO_2_new.png",
-    "/images/servicios/RACK_SELECTIVO_3_new.jpg",
-    "/images/servicios/RACK_SELECTIVO_4_new.jpg",
+    "/images/servicios/rack_selectivo_1.jpg",
+    "/images/servicios/rack_selectivo_2.jpg",
+    "/images/servicios/rack_selectivo_3.jpg",
+    "/images/servicios/rack_selectivo_4.jpg",
+    "/images/servicios/rack_selectivo_5.jpg",
+    "/images/servicios/rack_selectivo_6.jpg",
   ],
   "rack-drive-in": [
-    "/images/servicios/rack_drive_in_1.jpg",
-    "/images/servicios/rack_drive_in_2.jpg",
-    "/images/servicios/rack_drive_in_3.jpg",
-    "/images/servicios/rack_drive_in_4.jpg",
+    "/images/servicios/drive_in_1.jpg",
+    "/images/servicios/drive_in_2.jpg",
+    "/images/servicios/drive_in_3.jpg",
+    "/images/servicios/drive_in_4.jpg",
+    "/images/servicios/drive_in_5.jpg",
+    "/images/servicios/drive_in_6.jpg",
   ],
   "altillo-rack": [
-    "/images/servicios/altillo_rack_1.jpg",
-    "/images/servicios/altillo_rack_2.jpg",
-    "/images/servicios/altillo_rack_3.jpg",
-  ],
-  "altillo-industrial": [
     "/images/servicios/ALTILLO_1_new.jpg",
     "/images/servicios/ALTILLO_2_new.jpg",
     "/images/servicios/ALTILLO_3_new.jpg",
     "/images/servicios/ALTILLO_4_new.jpg",
     "/images/servicios/ALTILLO_5_new.png",
+    "/images/servicios/ALTILLO_6_new.jpg",
+  ],
+  "altillo-industrial": [
+    "/images/servicios/Altillo_Industrial_1.jpg",
+    "/images/servicios/Altillo_Industrial_2.jpg",
+    "/images/servicios/Altillo_Industrial_3.jpg",
+    "/images/servicios/Altillo_Industrial_4.jpg",
+    "/images/servicios/Altillo_Industrial_5.jpg",
+    "/images/servicios/Altillo_Industrial_6.jpg",
+  ],
+} as const;
+
+const systemImageAltText = {
+  "rack-selectivo": [
+    "Rack selectivo industrial con niveles para almacenamiento de pallets",
+    "Rack selectivo para bodega con pasillos de acceso directo a cada pallet",
+    "Rack selectivo instalado para operación logística y control de inventario",
+    "Sistema de rack selectivo para almacenaje industrial de alta rotación",
+    "Rack selectivo metálico para optimizar posiciones de pallet en bodega",
+    "Rack selectivo en centro de distribución para acceso rápido a productos",
+  ],
+  "rack-drive-in": [
+    "Rack drive in con calles profundas para almacenamiento de alta densidad",
+    "Rack drive in industrial para maximizar capacidad de pallets por SKU",
+    "Rack drive in instalado en bodega para reducir pasillos operativos",
+    "Sistema drive in para almacenamiento compacto de productos palletizados",
+    "Rack drive in metálico para optimización de espacio en bodega industrial",
+    "Rack drive in para operaciones logísticas con alta densidad de almacenaje",
+  ],
+  "altillo-rack": [
+    "Altillo rack modular con estructura metálica para ampliar superficie útil",
+    "Altillo rack para bodega con nivel superior de almacenamiento y operación",
+    "Altillo rack integrado a sistema de almacenaje para aprovechar altura disponible",
+    "Detalle de altillo rack con plataforma elevada para flujo operativo",
+    "Altillo rack en bodega para picking y almacenamiento liviano",
+    "Altillo rack instalado para optimizar superficie en centro de distribución",
   ],
 } as const;
 
@@ -79,49 +115,15 @@ const systemsWithMedia = systems.map((system) => ({
             id={system.anchorId}
             class={`system-detail ${index % 2 !== 0 ? "system-detail--reverse" : ""}`}
           >
-            <div class="system-carousel" data-carousel>
-              <div class="system-carousel__viewport">
-                <div class="system-carousel__track" data-track>
-                  {system.images.map((image, imageIndex) => (
-                    <figure class="system-carousel__slide">
-                      <img
-                        src={image}
-                        alt={`${system.name} ${imageIndex + 1}`}
-                        loading="lazy"
-                      />
-                    </figure>
-                  ))}
-                </div>
-              </div>
-
-              <button
-                class="system-carousel__btn system-carousel__btn--prev"
-                type="button"
-                data-dir="-1"
-                aria-label="Anterior"
-              >
-                ‹
-              </button>
-              <button
-                class="system-carousel__btn system-carousel__btn--next"
-                type="button"
-                data-dir="1"
-                aria-label="Siguiente"
-              >
-                ›
-              </button>
-
-              <div class="system-carousel__dots">
-                {system.images.map((_, dotIndex) => (
-                  <button
-                    type="button"
-                    class={`system-carousel__dot ${dotIndex === 0 ? "is-active" : ""}`}
-                    data-dot={dotIndex}
-                    aria-label={`Ir a imagen ${dotIndex + 1}`}
-                  />
-                ))}
-              </div>
-            </div>
+            <SystemCarousel
+              class="system-detail__carousel"
+              images={system.images.map((image, imageIndex) => ({
+                src: image,
+                alt: systemImageAltText[system.slug as keyof typeof systemImageAltText]?.[imageIndex]
+                  ?? `${system.name} - imagen ${imageIndex + 1} de proyecto de almacenaje industrial`,
+              }))}
+              label={`Galería de ${system.name}`}
+            />
 
             <div class="system-detail__content">
               <h2>{system.name}</h2>
@@ -229,107 +231,12 @@ const systemsWithMedia = systems.map((system) => ({
     padding: 1.05rem;
   }
 
-  .system-detail--reverse .system-carousel {
+  .system-detail--reverse :global(.system-detail__carousel) {
     order: 2;
   }
 
   .system-detail--reverse .system-detail__content {
     order: 1;
-  }
-
-  .system-carousel {
-    position: relative;
-    border-radius: 18px;
-    overflow: hidden;
-    border: 1px solid rgba(10, 23, 48, 0.08);
-    box-shadow: 0 10px 22px rgba(10, 23, 48, 0.08);
-    background: #dce5ee;
-  }
-
-  .system-carousel__viewport {
-    overflow: hidden;
-    aspect-ratio: 5 / 4;
-  }
-
-  .system-carousel__track {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.35s ease;
-  }
-
-  .system-carousel__slide {
-    flex: 0 0 100%;
-    margin: 0;
-    height: 100%;
-  }
-
-  .system-carousel__slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .system-carousel__btn {
-    position: absolute;
-    top: calc(50% - 19px);
-    width: 38px;
-    height: 38px;
-    border: 1px solid rgba(255, 255, 255, 0.55);
-    border-radius: 999px;
-    background: rgba(12, 24, 46, 0.45);
-    color: #fff;
-    font-size: 1.35rem;
-    line-height: 1;
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-    transition: 0.2s ease;
-  }
-
-  .system-carousel__btn:hover {
-    background: rgba(12, 24, 46, 0.72);
-  }
-
-  .system-carousel__btn--prev {
-    left: 0.6rem;
-  }
-
-  .system-carousel__btn--next {
-    right: 0.6rem;
-  }
-
-  .system-carousel__dots {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0.5rem;
-    display: flex;
-    justify-content: center;
-    gap: 0.35rem;
-  }
-
-  .system-carousel__dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 999px;
-    border: 0;
-    background: rgba(255, 255, 255, 0.5);
-    cursor: pointer;
-    padding: 0;
-    transition:
-      transform 0.2s ease,
-      background 0.2s ease;
-  }
-
-  .system-carousel__dot.is-active {
-    background: #fff;
-    transform: scale(1.2);
-  }
-
-  .system-carousel.is-static .system-carousel__btn,
-  .system-carousel.is-static .system-carousel__dots {
-    display: none;
   }
 
   .system-detail__content h2 {
@@ -374,13 +281,9 @@ const systemsWithMedia = systems.map((system) => ({
       padding: 0.9rem;
     }
 
-    .system-detail--reverse .system-carousel,
+    .system-detail--reverse :global(.system-detail__carousel),
     .system-detail--reverse .system-detail__content {
       order: initial;
-    }
-
-    .system-carousel__viewport {
-      aspect-ratio: 16 / 10;
     }
   }
 
@@ -405,94 +308,5 @@ const systemsWithMedia = systems.map((system) => ({
       font-size: clamp(1.45rem, 8vw, 2.2rem);
     }
 
-    .system-carousel__btn {
-      width: 34px;
-      height: 34px;
-      top: calc(50% - 17px);
-    }
   }
 </style>
-
-<script>
-  (() => {
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    const carousels = document.querySelectorAll("[data-carousel]");
-
-    carousels.forEach((carousel) => {
-      const track = carousel.querySelector("[data-track]");
-      if (!(track instanceof HTMLElement)) return;
-
-      const slides = Array.from(
-        track.querySelectorAll(".system-carousel__slide"),
-      );
-      const dots = Array.from(carousel.querySelectorAll("[data-dot]"));
-      const navButtons = Array.from(carousel.querySelectorAll("[data-dir]"));
-
-      if (slides.length <= 1) {
-        carousel.classList.add("is-static");
-        return;
-      }
-
-      let index = 0;
-      let autoTimer = null;
-
-      const render = () => {
-        track.style.transform = `translateX(-${index * 100}%)`;
-        dots.forEach((dot, dotIndex) => {
-          dot.classList.toggle("is-active", dotIndex === index);
-        });
-      };
-
-      const goTo = (nextIndex) => {
-        index = (nextIndex + slides.length) % slides.length;
-        render();
-      };
-
-      const stopAuto = () => {
-        if (autoTimer) {
-          window.clearInterval(autoTimer);
-          autoTimer = null;
-        }
-      };
-
-      const startAuto = () => {
-        if (reduceMotion) return;
-        stopAuto();
-        autoTimer = window.setInterval(() => {
-          goTo(index + 1);
-        }, 3000);
-      };
-
-      navButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          const direction = Number(button.getAttribute("data-dir")) || 0;
-          goTo(index + direction);
-        });
-      });
-
-      dots.forEach((dot, dotIndex) => {
-        dot.addEventListener("click", () => {
-          goTo(dotIndex);
-        });
-      });
-
-      carousel.addEventListener("mouseenter", stopAuto);
-      carousel.addEventListener("mouseleave", startAuto);
-      carousel.addEventListener("focusin", stopAuto);
-      carousel.addEventListener("focusout", startAuto);
-
-      document.addEventListener("visibilitychange", () => {
-        if (document.hidden) {
-          stopAuto();
-        } else {
-          startAuto();
-        }
-      });
-
-      render();
-      startAuto();
-    });
-  })();
-</script>

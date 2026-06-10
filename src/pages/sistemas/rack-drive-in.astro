@@ -7,11 +7,39 @@ import { systems } from '../../data';
 
 const system = systems.find((item) => item.slug === 'rack-drive-in');
 
+const gallery = [
+  {
+    src: '/images/servicios/drive_in_1.jpg',
+    alt: 'Rack drive in con calles profundas para almacenamiento de alta densidad',
+  },
+  {
+    src: '/images/servicios/drive_in_2.jpg',
+    alt: 'Rack drive in industrial para maximizar capacidad de pallets por SKU',
+  },
+  {
+    src: '/images/servicios/drive_in_3.jpg',
+    alt: 'Rack drive in instalado en bodega para reducir pasillos operativos',
+  },
+  {
+    src: '/images/servicios/drive_in_4.jpg',
+    alt: 'Sistema drive in para almacenamiento compacto de productos palletizados',
+  },
+  {
+    src: '/images/servicios/drive_in_5.jpg',
+    alt: 'Rack drive in metálico para optimización de espacio en bodega industrial',
+  },
+  {
+    src: '/images/servicios/drive_in_6.jpg',
+    alt: 'Rack drive in para operaciones logísticas con alta densidad de almacenaje',
+  },
+];
+
 const landing = {
   overview:
     'El rack drive in está orientado a maximizar capacidad de almacenaje en bodegas donde predominan productos homogéneos o grandes volúmenes por SKU. Al reducir la cantidad de pasillos y permitir almacenamiento en profundidad, ayuda a aprovechar mejor el espacio disponible sin ampliar la superficie de la bodega.',
-  image: '/images/servicios/rack_drive_in_1.jpg',
+  image: '/images/servicios/drive_in_3.jpg',
   imageAlt: 'Rack drive in para almacenamiento de alta densidad de pallets en bodega industrial',
+  gallery,
   idealFor: [
     {
       title: 'Alta densidad de pallets',
@@ -75,7 +103,7 @@ const landing = {
 <BaseLayout
   title="Rack Drive In para bodegas de alta densidad | Racker"
   description="Soluciones de rack drive in para almacenamiento de alta densidad, optimización de espacio y operación logística en bodegas industriales."
-  image="/images/servicios/rack_drive_in_1.jpg"
+  image="/images/servicios/drive_in_3.jpg"
 >
   <Header />
   <section class="page-hero">

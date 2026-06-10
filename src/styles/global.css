@@ -1148,6 +1148,66 @@ body.modal-open {
   .footer {
     padding: 3.2rem 0;
   }
+  .footer .container {
+    padding-inline: 1.2rem;
+  }
+  .footer__grid {
+    width: 100%;
+    max-width: 100%;
+    justify-items: start;
+    align-items: start;
+    gap: 1.65rem;
+  }
+  .footer__grid > * {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .footer .brand--footer {
+    width: auto;
+    max-width: 100%;
+    display: inline-flex;
+    align-items: flex-start;
+  }
+  .footer .brand__logo-shell {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0.42rem 0.62rem;
+  }
+  .footer .brand__logo-wrap--footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .footer .brand--footer .brand__logo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center center;
+    transform-origin: center center;
+  }
+  .footer__copy {
+    max-width: 32rem;
+    margin: 1rem 0 0;
+  }
+  .footer h4 {
+    margin: 0 0 0.45rem;
+  }
+  .footer__list {
+    width: 100%;
+    max-width: 100%;
+  }
+  .footer__list li {
+    overflow-wrap: anywhere;
+  }
+  .footer__legal {
+    text-align: left;
+  }
 }
 
 @media (max-width: 520px) {
@@ -1169,6 +1229,10 @@ body.modal-open {
     transform: scale(1.14);
   }
   .brand__logo-wrap--footer {
+    width: 128px;
+    height: 44px;
+  }
+  .footer .brand__logo-wrap--footer {
     width: 128px;
     height: 44px;
   }

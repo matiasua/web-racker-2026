@@ -7,11 +7,39 @@ import { systems } from '../../data';
 
 const system = systems.find((item) => item.slug === 'rack-selectivo');
 
+const gallery = [
+  {
+    src: '/images/servicios/rack_selectivo_1.jpg',
+    alt: 'Rack selectivo industrial con niveles para almacenamiento de pallets',
+  },
+  {
+    src: '/images/servicios/rack_selectivo_2.jpg',
+    alt: 'Rack selectivo para bodega con pasillos de acceso directo a cada pallet',
+  },
+  {
+    src: '/images/servicios/rack_selectivo_3.jpg',
+    alt: 'Rack selectivo instalado para operación logística y control de inventario',
+  },
+  {
+    src: '/images/servicios/rack_selectivo_4.jpg',
+    alt: 'Sistema de rack selectivo para almacenaje industrial de alta rotación',
+  },
+  {
+    src: '/images/servicios/rack_selectivo_5.jpg',
+    alt: 'Rack selectivo metálico para optimizar posiciones de pallet en bodega',
+  },
+  {
+    src: '/images/servicios/rack_selectivo_6.jpg',
+    alt: 'Rack selectivo en centro de distribución para acceso rápido a productos',
+  },
+];
+
 const landing = {
   overview:
     'El rack selectivo industrial es una alternativa versátil para operaciones que necesitan acceso directo a cada pallet, control por ubicación y flexibilidad para manejar distintos SKU. Permite ordenar la bodega sin perder velocidad en tareas de picking, reposición y despacho, por lo que funciona bien en centros de distribución, bodegas industriales y operaciones con rotación variable.',
-  image: '/images/servicios/RACK_SELECTIVO_5_new.jpg',
+  image: '/images/servicios/rack_selectivo_3.jpg',
   imageAlt: 'Rack selectivo industrial instalado para almacenamiento de pallets en bodega',
+  gallery,
   idealFor: [
     {
       title: 'Variedad de SKU',
@@ -75,7 +103,7 @@ const landing = {
 <BaseLayout
   title="Rack selectivo industrial en Chile | Racker"
   description="Sistema de rack selectivo para bodegas y centros de distribución. Diseño, fabricación y montaje de soluciones de almacenaje industrial en Chile."
-  image="/images/servicios/RACK_SELECTIVO_5_new.jpg"
+  image="/images/servicios/rack_selectivo_3.jpg"
 >
   <Header />
   <section class="page-hero">

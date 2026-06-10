@@ -1,0 +1,248 @@
+---
+import { existsSync, readdirSync } from "node:fs";
+import { basename, extname, join } from "node:path";
+
+const clientsDir = join(process.cwd(), "public", "images", "clientes");
+const imageExtensions = new Set([".avif", ".jpeg", ".jpg", ".png", ".svg", ".webp"]);
+
+const toTitleCase = (value: string) =>
+  value
+    .split(" ")
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+
+const getClientName = (fileName: string) => {
+  const name = basename(fileName, extname(fileName))
+    .replace(/e\d{8,}/gi, " ")
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  const cleanName = name
+    .split(" ")
+    .filter((word) => !/^(logo|cliente|sn|fondo|blanco|rojo)$/i.test(word))
+    .join(" ")
+    .trim();
+
+  return toTitleCase(cleanName || name);
+};
+
+const clientLogos = existsSync(clientsDir)
+  ? readdirSync(clientsDir, { withFileTypes: true })
+      .filter((entry) => entry.isFile())
+      .map((entry) => entry.name)
+      .filter((fileName) => imageExtensions.has(extname(fileName).toLowerCase()))
+      .sort((a, b) => a.localeCompare(b, "es"))
+      .map((fileName) => {
+        const clientName = getClientName(fileName);
+
+        return {
+          fileName,
+          clientName,
+          src: `/images/clientes/${encodeURIComponent(fileName)}`,
+          alt: `Logo de ${clientName}`,
+        };
+      })
+  : [];
+---
+
+{clientLogos.length > 0 && (
+  <section class="section client-logos" aria-labelledby="client-logos-title">
+    <div class="container client-logos__inner">
+      <div class="client-logos__copy">
+        <span class="eyebrow">Clientes</span>
+        <h2 id="client-logos-title">Empresas que han confiado en nosotros</h2>
+        <p>
+          Trabajamos junto a empresas de distintos rubros, entregando soluciones de almacenaje para operaciones industriales, comerciales y logísticas.
+        </p>
+      </div>
+
+      <div class="client-logos__marquee" aria-label="Logos de clientes de Racker">
+        <div class="client-logos__track">
+          <ul class="client-logos__group">
+            {clientLogos.map((logo) => (
+              <li class="client-logos__item">
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  title={logo.clientName}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </li>
+            ))}
+          </ul>
+
+          <ul class="client-logos__group" aria-hidden="true">
+            {clientLogos.map((logo) => (
+              <li class="client-logos__item">
+                <img
+                  src={logo.src}
+                  alt=""
+                  title={logo.clientName}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .client-logos {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(2.6rem, 5vw, 4.25rem);
+    background:
+      radial-gradient(circle at 12% 18%, rgba(255, 138, 29, 0.09), transparent 28%),
+      linear-gradient(180deg, #f7faff 0%, #eef5fd 100%);
+  }
+
+  .client-logos::before,
+  .client-logos::after {
+    content: "";
+    position: absolute;
+    width: 18rem;
+    height: 18rem;
+    border-radius: 999px;
+    background: rgba(15, 76, 151, 0.06);
+    filter: blur(6px);
+    pointer-events: none;
+  }
+
+  .client-logos::before {
+    left: -9rem;
+    top: 15%;
+  }
+
+  .client-logos::after {
+    right: -10rem;
+    bottom: -7rem;
+  }
+
+  .client-logos__inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: clamp(1.35rem, 3vw, 2rem);
+  }
+
+  .client-logos__copy {
+    max-width: 760px;
+  }
+
+  .client-logos__copy h2 {
+    margin: 0.35rem 0 0.55rem;
+    color: #132443;
+    font-size: clamp(1.75rem, 3.4vw, 2.65rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+  }
+
+  .client-logos__copy p {
+    max-width: 720px;
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.65;
+    font-size: clamp(0.98rem, 1.6vw, 1.08rem);
+  }
+
+  .client-logos__marquee {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-block: 0.25rem;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  }
+
+  .client-logos__track {
+    display: flex;
+    width: max-content;
+    animation: client-logo-marquee 42s linear infinite;
+  }
+
+  .client-logos__marquee:hover .client-logos__track {
+    animation-play-state: paused;
+  }
+
+  .client-logos__group {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.75rem, 1.6vw, 1rem);
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .client-logos__group + .client-logos__group {
+    padding-left: clamp(0.75rem, 1.6vw, 1rem);
+  }
+
+  .client-logos__item {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: clamp(138px, 16vw, 190px);
+    height: clamp(76px, 8.8vw, 108px);
+    padding: clamp(0.85rem, 1.8vw, 1.2rem);
+    border: 1px solid rgba(10, 23, 48, 0.08);
+    border-radius: 20px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 251, 255, 0.96));
+    box-shadow: 0 14px 30px rgba(11, 28, 53, 0.08);
+  }
+
+  .client-logos__item img {
+    width: 100%;
+    height: 100%;
+    max-height: 58px;
+    object-fit: contain;
+    filter: saturate(0.95) contrast(1.02);
+  }
+
+  @keyframes client-logo-marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .client-logos__track {
+      animation: none;
+    }
+
+    .client-logos__marquee {
+      overflow-x: auto;
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .client-logos {
+      padding-block: 2.35rem;
+    }
+
+    .client-logos__copy h2 {
+      max-width: 11ch;
+    }
+
+    .client-logos__marquee {
+      width: calc(100% + 2rem);
+      margin-left: -1rem;
+      padding-inline: 1rem;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    }
+  }
+</style>

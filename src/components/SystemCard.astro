@@ -1,18 +1,30 @@
 ---
 const { name, summary, slug } = Astro.props;
 
-const imageMap: Record<string, { src: string; fit?: "cover" | "contain" }> = {
-  "rack-selectivo": { src: "/images/servicios/RACK_SELECTIVO_5_new.jpg" },
-  "rack-drive-in": { src: "/images/servicios/rack_drive_in_1.jpg" },
-  "altillo-rack": { src: "/images/servicios/altillo_rack_1.jpg" },
-  "altillo-industrial": { src: "/images/servicios/ALTILLO_1_new.jpg" },
+const imageMap: Record<string, { src: string; alt?: string; fit?: "cover" | "contain" }> = {
+  "rack-selectivo": {
+    src: "/images/servicios/rack_selectivo_6.jpg",
+    alt: "Rack selectivo industrial para almacenamiento de pallets en bodega",
+  },
+  "rack-drive-in": {
+    src: "/images/servicios/drive_in_3.jpg",
+    alt: "Rack drive in para almacenamiento de alta densidad en bodega",
+  },
+  "altillo-rack": {
+    src: "/images/servicios/ALTILLO_6_new.jpg",
+    alt: "Altillo rack modular para aumentar superficie útil en bodega",
+  },
+  "altillo-industrial": {
+    src: "/images/servicios/Altillo_Industrial_3.jpg",
+    alt: "Altillo industrial metálico para ampliar superficie operativa en bodega",
+  },
 };
 
-const media = imageMap[slug] ?? { src: "/images/servicios/RACK_SELECTIVO_5_new.jpg" };
+const media = imageMap[slug] ?? { src: "/images/servicios/rack_selectivo_6.jpg" };
 ---
 <article class="card">
   <div class={`card__media ${media.fit === "contain" ? "card__media--contain" : ""}`}>
-    <img src={media.src} alt={name} loading="lazy" />
+    <img src={media.src} alt={media.alt ?? name} loading="lazy" />
   </div>
   <div class="card__body">
     <h3>{name}</h3>

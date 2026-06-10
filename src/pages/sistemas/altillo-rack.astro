@@ -7,11 +7,39 @@ import { systems } from '../../data';
 
 const system = systems.find((item) => item.slug === 'altillo-rack');
 
+const gallery = [
+  {
+    src: '/images/servicios/ALTILLO_1_new.jpg',
+    alt: 'Altillo rack modular con estructura metálica para ampliar superficie útil',
+  },
+  {
+    src: '/images/servicios/ALTILLO_2_new.jpg',
+    alt: 'Altillo rack para bodega con nivel superior de almacenamiento y operación',
+  },
+  {
+    src: '/images/servicios/ALTILLO_3_new.jpg',
+    alt: 'Altillo rack integrado a sistema de almacenaje para aprovechar altura disponible',
+  },
+  {
+    src: '/images/servicios/ALTILLO_4_new.jpg',
+    alt: 'Detalle de altillo rack con plataforma elevada para flujo operativo',
+  },
+  {
+    src: '/images/servicios/ALTILLO_5_new.png',
+    alt: 'Altillo rack en bodega para picking y almacenamiento liviano',
+  },
+  {
+    src: '/images/servicios/ALTILLO_6_new.jpg',
+    alt: 'Altillo rack instalado para optimizar superficie en centro de distribución',
+  },
+];
+
 const landing = {
   overview:
     'El altillo rack permite aprovechar la altura disponible de una bodega para aumentar superficie útil sin ejecutar una ampliación física del recinto. Es una solución modular que puede integrarse con sistemas de racks y apoyar zonas de picking, almacenamiento liviano, preparación de pedidos o áreas operativas sobre la misma huella de la bodega.',
-  image: '/images/servicios/altillo_rack_1.jpg',
+  image: '/images/servicios/ALTILLO_3_new.jpg',
   imageAlt: 'Altillo rack para bodega integrado con estructura de almacenaje industrial',
+  gallery,
   idealFor: [
     {
       title: 'Altura disponible sin uso',
@@ -75,7 +103,7 @@ const landing = {
 <BaseLayout
   title="Altillo rack para bodegas y centros de distribución | Racker"
   description="Altillo rack para ampliar superficie útil en bodegas y operaciones logísticas, integrando estructuras metálicas y sistemas de almacenaje."
-  image="/images/servicios/altillo_rack_1.jpg"
+  image="/images/servicios/ALTILLO_3_new.jpg"
 >
   <Header />
   <section class="page-hero">

@@ -7,11 +7,39 @@ import { systems } from '../../data';
 
 const system = systems.find((item) => item.slug === 'altillo-industrial');
 
+const gallery = [
+  {
+    src: '/images/servicios/Altillo_Industrial_1.jpg',
+    alt: 'Altillo industrial metálico con estructura para ampliar superficie operativa',
+  },
+  {
+    src: '/images/servicios/Altillo_Industrial_2.jpg',
+    alt: 'Altillo industrial en bodega con plataforma elevada para operación logística',
+  },
+  {
+    src: '/images/servicios/Altillo_Industrial_3.jpg',
+    alt: 'Altillo industrial instalado para aumentar metros útiles en recinto industrial',
+  },
+  {
+    src: '/images/servicios/Altillo_Industrial_4.jpg',
+    alt: 'Detalle de altillo industrial metálico para almacenamiento y circulación',
+  },
+  {
+    src: '/images/servicios/Altillo_Industrial_5.jpg',
+    alt: 'Proyecto de altillo industrial para habilitar segundo nivel operativo',
+  },
+  {
+    src: '/images/servicios/Altillo_Industrial_6.jpg',
+    alt: 'Altillo industrial para optimizar altura disponible en bodega',
+  },
+];
+
 const landing = {
   overview:
     'El altillo industrial es una estructura metálica pensada para aumentar superficie operativa dentro de bodegas, industrias y centros de distribución. Permite aprovechar metros cúbicos disponibles y habilitar zonas de almacenamiento, circulación, estaciones de trabajo o áreas productivas según el layout y la carga de uso del proyecto.',
-  image: '/images/servicios/ALTILLO_1_new.jpg',
+  image: '/images/servicios/Altillo_Industrial_3.jpg',
   imageAlt: 'Altillo industrial metálico para ampliar superficie operativa en bodega',
+  gallery,
   idealFor: [
     {
       title: 'Mayor superficie operativa',
@@ -75,7 +103,7 @@ const landing = {
 <BaseLayout
   title="Altillo industrial para almacenaje y operación logística | Racker"
   description="Diseño, fabricación y montaje de altillos industriales para aumentar metros útiles en bodegas, centros de distribución e industria."
-  image="/images/servicios/ALTILLO_1_new.jpg"
+  image="/images/servicios/Altillo_Industrial_3.jpg"
 >
   <Header />
   <section class="page-hero">
