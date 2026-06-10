@@ -10,6 +10,7 @@ const {
   image = "/images/servicios/rack_selectivo_3.jpg",
   noindex = false,
   type = "website",
+  schema = [],
 } = Astro.props;
 
 const baseUrl = Astro.site ?? Astro.url;
@@ -74,6 +75,7 @@ const jsonLd = [
       url: siteUrl,
     },
   },
+  ...schema,
 ];
 ---
 
